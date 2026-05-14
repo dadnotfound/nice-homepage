@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>nice — Film Ticket</title>
+<title>nice — 电影票</title>
 <style>
 :root {
   --bg: #0a0a0c;
@@ -33,7 +33,6 @@ body {
   overflow-x:hidden;
   padding:12px;
 }
-/* Language toggle */
 .lang-toggle {
   position:fixed; top:16px; right:16px; z-index:10;
   background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.1);
@@ -42,43 +41,23 @@ body {
   transition:all .2s;
 }
 .lang-toggle:hover { color:var(--text); border-color:rgba(255,255,255,0.2); }
-
-/* ── Ticket Container ── */
-.ticket-wrapper {
-  perspective:800px; width:100%; max-width:520px;
-}
+.ticket-wrapper { perspective:800px; width:100%; max-width:520px; }
 .ticket {
-  position:relative;
-  background:var(--ticket-bg);
-  border-radius:2px;
-  display:flex;
-  min-height:340px;
+  position:relative; background:var(--ticket-bg); border-radius:2px;
+  display:flex; min-height:340px;
   box-shadow: 0 24px 80px rgba(0,0,0,0.5), 0 4px 16px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.03);
-  overflow:hidden;
-  transition: transform .35s cubic-bezier(.25,.1,.25,1),
-              box-shadow .35s cubic-bezier(.25,.1,.25,1);
-  will-change:transform;
-  contain:layout style;
+  overflow:hidden; transition: transform .35s cubic-bezier(.25,.1,.25,1), box-shadow .35s cubic-bezier(.25,.1,.25,1);
+  will-change:transform; contain:layout style;
 }
-.ticket:hover {
-  transform:translateY(-2px);
-  box-shadow: 0 28px 90px rgba(0,0,0,0.55), 0 6px 20px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.04);
-}
-
-/* ── Left Stub ── */
+.ticket:hover { transform:translateY(-2px); box-shadow: 0 28px 90px rgba(0,0,0,0.55), 0 6px 20px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.04); }
 .stub {
-  width:110px; min-width:110px;
-  background:var(--ticket-stub);
+  width:110px; min-width:110px; background:var(--ticket-stub);
   display:flex; flex-direction:column; align-items:center;
-  padding:24px 10px 20px;
-  border-right:1px dashed var(--perf);
-  position:relative;
-  gap:8px;
+  padding:24px 10px 20px; border-right:1px dashed var(--perf); position:relative; gap:8px;
 }
 .stub-label {
   font-family:var(--font-ticket); font-size:9px; color:var(--text-dim);
-  text-transform:uppercase; letter-spacing:2px;
-  opacity:0.6;
+  text-transform:uppercase; letter-spacing:2px; opacity:0.6;
 }
 .stub-avatar {
   font-family:var(--font-ticket); font-size:7px; line-height:1.2;
@@ -96,16 +75,8 @@ body {
   border-radius:2px; transition:all .2s; text-transform:uppercase;
   letter-spacing:1px; background:transparent;
 }
-.stub-save:hover {
-  color:var(--accent); border-color:var(--accent-dim);
-}
-
-/* ── Right Main Body ── */
-.body {
-  flex:1; display:flex; flex-direction:column; padding:24px 28px 0;
-  min-width:0;
-}
-/* Top: cinema + title */
+.stub-save:hover { color:var(--accent); border-color:var(--accent-dim); }
+.body { flex:1; display:flex; flex-direction:column; padding:24px 28px 0; min-width:0; }
 .body-header { margin-bottom:10px; }
 .cinema {
   font-family:var(--font-ticket); font-size:10px; color:var(--text-dim);
@@ -120,49 +91,24 @@ body {
   font-family:var(--font-ticket); font-size:10px; color:var(--accent);
   letter-spacing:3px; text-transform:uppercase; margin-top:2px;
 }
-
-/* Meta row */
-.meta {
-  display:flex; gap:20px; margin-bottom:6px;
-  font-family:var(--font-ticket);
-}
+.meta { display:flex; gap:20px; margin-bottom:6px; font-family:var(--font-ticket); }
 .meta-item { display:flex; flex-direction:column; gap:1px; }
 .meta-label { font-size:7px; color:var(--text-dim); text-transform:uppercase; letter-spacing:1px; }
 .meta-value { font-size:10px; color:var(--text); letter-spacing:0.5px; }
-
-/* Seat + admit */
-.ticket-footer-row {
-  display:flex; justify-content:space-between; align-items:center;
-  margin-bottom:0;
-}
-.seat {
-  font-family:var(--font-ticket); font-size:9px; color:var(--text-dim);
-  letter-spacing:1px;
-}
-.admit {
-  font-family:var(--font-ticket); font-size:10px; color:var(--accent);
-  text-transform:uppercase; letter-spacing:2px; font-weight:700;
-}
-
-/* ── Perforation / Tear line ── */
+.ticket-footer-row { display:flex; justify-content:space-between; align-items:center; }
+.seat { font-family:var(--font-ticket); font-size:9px; color:var(--text-dim); letter-spacing:1px; }
+.admit { font-family:var(--font-ticket); font-size:10px; color:var(--accent); text-transform:uppercase; letter-spacing:2px; font-weight:700; }
 .tear-line {
   display:flex; align-items:center; gap:6px; margin:10px 0 8px;
   color:var(--text-dim); font-family:var(--font-ticket); font-size:8px;
   letter-spacing:1px; opacity:.5;
 }
-.tear-line::before,.tear-line::after {
-  content:''; flex:1; height:0;
-  border-top:1px dashed rgba(255,255,255,0.08);
-}
-
-/* ── Slogan ── */
+.tear-line::before,.tear-line::after { content:''; flex:1; height:0; border-top:1px dashed rgba(255,255,255,0.08); }
 .slogan {
   font-family:var(--font-ui); font-size:12px; color:var(--text-dim);
   font-style:italic; text-align:center; line-height:1.5;
   margin-bottom:6px; opacity:.7;
 }
-
-/* ── Countdown ── */
 .countdown-row {
   display:flex; align-items:center; gap:10px;
   margin-bottom:6px; padding:8px 12px;
@@ -174,36 +120,23 @@ body {
 }
 .countdown-value {
   font-family:var(--font-ticket); font-size:22px; font-weight:700;
-  color:var(--text-bright); letter-spacing:1px;
-  transition:color .3s;
+  color:var(--text-bright); letter-spacing:1px; transition:color .3s;
 }
 .countdown-value.urgent { color:var(--red); animation:pulse .6s ease-in-out infinite; }
 @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
-
-/* ── Progress bars ── */
 .progress-group { display:flex; flex-direction:column; gap:4px; margin-bottom:4px; }
-.progress-row {
-  display:flex; align-items:center; gap:8px;
-}
+.progress-row { display:flex; align-items:center; gap:8px; }
 .progress-label {
   font-family:var(--font-ticket); font-size:8px; color:var(--text-dim);
   width:55px; text-align:right; text-transform:uppercase; letter-spacing:1px;
   white-space:nowrap;
 }
-.progress-bar {
-  flex:1; height:3px; background:var(--progress-bg);
-  border-radius:2px; overflow:hidden;
-}
-.progress-fill {
-  height:100%; background:var(--progress-fill);
-  border-radius:2px; transition:width .5s ease;
-}
+.progress-bar { flex:1; height:3px; background:var(--progress-bg); border-radius:2px; overflow:hidden; }
+.progress-fill { height:100%; background:var(--progress-fill); border-radius:2px; transition:width .5s ease; }
 .progress-pct {
   font-family:var(--font-ticket); font-size:8px; color:var(--text-dim);
   width:36px; text-align:right;
 }
-
-/* ── Social links ── */
 .social-row {
   display:flex; justify-content:center; gap:18px;
   padding:10px 0 14px; border-top:1px solid rgba(255,255,255,0.04);
@@ -216,8 +149,6 @@ body {
 }
 .social-row a:hover { color:var(--accent); }
 .social-row svg { width:13px; height:13px; }
-
-/* ── Animations ── */
 @keyframes tearOut {
   0% { transform:translateX(0); opacity:1; }
   50% { transform:translateX(-20px); opacity:.5; }
@@ -229,16 +160,13 @@ body {
 }
 .tearing .ticket { animation:tearOut .5s ease-in forwards; }
 .ticket.fresh { animation:tearIn .5s ease-out; }
-
-/* ── Toast ── */
 .toast {
   position:fixed; bottom:24px; left:50%; transform:translateX(-50%);
   background:var(--ticket-bg); color:var(--accent);
   padding:8px 20px; border-radius:4px; font-family:var(--font-ticket);
   font-size:11px; letter-spacing:1px; z-index:20;
   border:1px solid rgba(212,168,83,0.2);
-  opacity:0; transition:opacity .3s;
-  pointer-events:none;
+  opacity:0; transition:opacity .3s; pointer-events:none;
 }
 .toast.show { opacity:1; }
 
@@ -256,73 +184,65 @@ body {
   .meta { gap:12px; }
   .meta-value { font-size:9px; }
   .countdown-value { font-size:18px; }
+  .progress-label { width:42px; }
+  .social-row { gap:12px; }
 }
 </style>
 </head>
 <body>
 
-<button class="lang-toggle" id="langToggle" title="Switch language">中</button>
+<button class="lang-toggle" id="langToggle" title="Switch language">EN</button>
 
 <div class="ticket-wrapper">
   <div class="ticket" id="ticket">
-    <!-- Left Stub -->
-    <div class="stub" id="stub">
-      <div class="stub-label" data-i18n="stub"></div>
+    <div class="stub">
+      <div class="stub-label" id="stubLabel"></div>
       <div class="stub-avatar" id="avatar"></div>
       <div class="stub-initials">B&T</div>
-      <button class="stub-save" id="saveBtn" data-i18n="save"></button>
+      <button class="stub-save" id="saveBtn"></button>
     </div>
-    <!-- Main Body -->
     <div class="body">
       <div class="body-header">
-        <div class="cinema">LOCALHOST</div>
+        <div class="cinema" id="cinema"></div>
         <div class="film-title" id="filmTitle"></div>
         <div class="film-subtitle" id="filmSubtitle"></div>
       </div>
       <div class="meta">
         <div class="meta-item">
-          <span class="meta-label" data-i18n="date"></span>
+          <span class="meta-label" id="labelDate"></span>
           <span class="meta-value" id="metaDate"></span>
         </div>
         <div class="meta-item">
-          <span class="meta-label" data-i18n="showtime"></span>
+          <span class="meta-label" id="labelShowtime"></span>
           <span class="meta-value" id="metaShowtime"></span>
         </div>
         <div class="meta-item">
-          <span class="meta-label" data-i18n="price"></span>
-          <span class="meta-value">OPEN SOURCE</span>
+          <span class="meta-label" id="labelPrice"></span>
+          <span class="meta-value" id="metaPrice"></span>
         </div>
       </div>
       <div class="ticket-footer-row">
-        <span class="seat">ROW 127 · SEAT 0.0.1</span>
-        <span class="admit">ADMIT ONE</span>
+        <span class="seat" id="seat"></span>
+        <span class="admit" id="admit"></span>
       </div>
-
-      <!-- Tear line -->
       <div class="tear-line">∞ ∞ ∞ ∞ ∞ ∞ ∞ ∞ ∞</div>
       <div class="slogan" id="slogan"></div>
-
-      <!-- Countdown -->
       <div class="countdown-row">
-        <span class="countdown-label" data-i18n="countdown"></span>
+        <span class="countdown-label" id="countdownLabel"></span>
         <span class="countdown-value" id="countdown">89:59</span>
       </div>
-
-      <!-- Progress -->
       <div class="progress-group">
         <div class="progress-row">
-          <span class="progress-label" data-i18n="today"></span>
+          <span class="progress-label" id="labelToday"></span>
           <div class="progress-bar"><div class="progress-fill" id="todayFill"></div></div>
-          <span class="progress-pct" id="todayPct">0%</span>
+          <span class="progress-pct" id="todayPct"></span>
         </div>
         <div class="progress-row">
-          <span class="progress-label" data-i18n="year"></span>
+          <span class="progress-label" id="labelYear"></span>
           <div class="progress-bar"><div class="progress-fill" id="yearFill"></div></div>
-          <span class="progress-pct" id="yearPct">0%</span>
+          <span class="progress-pct" id="yearPct"></span>
         </div>
       </div>
-
-      <!-- Social -->
       <div class="social-row">
         <a href="https://x.com/Myrfather" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
@@ -334,7 +254,7 @@ body {
         </a>
         <a href="https://codecave.feishu.cn/drive/folder/CkvWf3Q8Il75RGdhdBUc70AtncQ?from=from_copylink" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-          Feishu
+          <span id="socialFeishu"></span>
         </a>
       </div>
     </div>
@@ -347,30 +267,108 @@ body {
 (function(){
 'use strict';
 
-/* ═══════════════════════════════════════════
-   i18n
-   ═══════════════════════════════════════════ */
+/* ═══════════════════════════
+   i18n — complete dictionary
+   ═══════════════════════════ */
 var lang = localStorage.getItem('lang') || 'zh';
-var i18n = {
-  zh: { stub:'存根', save:'保存票根', date:'日期', showtime:'场次', price:'票价',
-        countdown:'距离开机剩余', today:'今日进度', year:'年度进度',
-        slogan:'人生如电影。走到摄影机后面去。',
-        saved:'票根已保存 ✓', cinema:'LOCALHOST' },
-  en: { stub:'STUB', save:'SAVE TICKET', date:'DATE', showtime:'SHOW', price:'PRICE',
-        countdown:'Until roll', today:'TODAY', year:'YEAR',
-        slogan:'Life unfolds like a film. Step behind the camera.',
-        saved:'Ticket saved  ✓', cinema:'LOCALHOST' }
+
+var DICT = {
+  zh: {
+    cinema: '本地主机',
+    stub: '存根',
+    save: '保存票根',
+    date: '日期',
+    showtime: '场次',
+    price: '票价',
+    priceVal: '开源',
+    seat: '127排 · 0.0.1座',
+    admit: '凭票入场',
+    countdown: '距离开机剩余',
+    today: '今日场次',
+    year: '年度天数',
+    slogan: '人生如电影。走到摄影机后面去。',
+    saved: '票根已保存 ✓',
+    feishu: '飞书',
+    sessions: [
+      {name:'深夜编译', sub:'MIDNIGHT COMPILE'},
+      {name:'调试梦境', sub:'DREAM DEBUG'},
+      {name:'静默部署', sub:'SILENT DEPLOY'},
+      {name:'黎明补丁', sub:'DAWN PATCH'},
+      {name:'清晨迭代', sub:'MORNING ITER'},
+      {name:'架构早餐', sub:'BREAKFAST ARCH'},
+      {name:'全栈日场', sub:'FULL STACK'},
+      {name:'重构午时', sub:'NOON REFACTOR'},
+      {name:'午间休场', sub:'LUNCH BREAK'},
+      {name:'午后构建', sub:'AFTERNOON BUILD'},
+      {name:'日落提交', sub:'SUNSET COMMIT'},
+      {name:'黄昏审查', sub:'EVENING REVIEW'},
+      {name:'黄金时段', sub:'GOLDEN HOUR'},
+      {name:'夜间轮值', sub:'NIGHT SHIFT'},
+      {name:'深夜运维', sub:'LATE NIGHT OPS'},
+      {name:'末次编译', sub:'LAST COMPILE'}
+    ]
+  },
+  en: {
+    cinema: 'LOCALHOST',
+    stub: 'STUB',
+    save: 'SAVE TICKET',
+    date: 'DATE',
+    showtime: 'SHOW',
+    price: 'PRICE',
+    priceVal: 'OPEN SOURCE',
+    seat: 'ROW 127 · SEAT 0.0.1',
+    admit: 'ADMIT ONE',
+    countdown: 'Until roll',
+    today: 'REEL',
+    year: 'DAYS',
+    slogan: 'Life unfolds like a film. Step behind the camera.',
+    saved: 'Ticket saved  ✓',
+    feishu: 'Feishu',
+    sessions: [
+      {name:'MIDNIGHT COMPILE', sub:'深夜编译'},
+      {name:'DREAM DEBUG', sub:'调试梦境'},
+      {name:'SILENT DEPLOY', sub:'静默部署'},
+      {name:'DAWN PATCH', sub:'黎明补丁'},
+      {name:'MORNING ITER', sub:'清晨迭代'},
+      {name:'BREAKFAST ARCH', sub:'架构早餐'},
+      {name:'FULL STACK', sub:'全栈日场'},
+      {name:'NOON REFACTOR', sub:'重构午时'},
+      {name:'LUNCH BREAK', sub:'午间休场'},
+      {name:'AFTERNOON BUILD', sub:'午后构建'},
+      {name:'SUNSET COMMIT', sub:'日落提交'},
+      {name:'EVENING REVIEW', sub:'黄昏审查'},
+      {name:'GOLDEN HOUR', sub:'黄金时段'},
+      {name:'NIGHT SHIFT', sub:'夜间轮值'},
+      {name:'LATE NIGHT OPS', sub:'深夜运维'},
+      {name:'LAST COMPILE', sub:'末次编译'}
+    ]
+  }
 };
 
-function t(key) { return i18n[lang][key] || key; }
+function t(key) { return DICT[lang][key] || key; }
 
 function applyI18n() {
-  document.querySelectorAll('[data-i18n]').forEach(function(el) {
-    el.textContent = t(el.getAttribute('data-i18n'));
-  });
+  // Static text
+  document.getElementById('cinema').textContent = t('cinema');
+  document.getElementById('stubLabel').textContent = t('stub');
+  document.getElementById('saveBtn').textContent = t('save');
+  document.getElementById('labelDate').textContent = t('date');
+  document.getElementById('labelShowtime').textContent = t('showtime');
+  document.getElementById('labelPrice').textContent = t('price');
+  document.getElementById('metaPrice').textContent = t('priceVal');
+  document.getElementById('seat').textContent = t('seat');
+  document.getElementById('admit').textContent = t('admit');
+  document.getElementById('countdownLabel').textContent = t('countdown');
+  document.getElementById('labelToday').textContent = t('today');
+  document.getElementById('labelYear').textContent = t('year');
   document.getElementById('slogan').textContent = t('slogan');
+  document.getElementById('socialFeishu').textContent = t('feishu');
   document.getElementById('langToggle').textContent = lang === 'zh' ? 'EN' : '中';
+  document.documentElement.lang = lang;
   document.title = lang === 'zh' ? 'nice — 电影票' : 'nice — Film Ticket';
+
+  // Session-dependent text
+  updateSessionText();
 }
 
 document.getElementById('langToggle').addEventListener('click', function() {
@@ -379,30 +377,15 @@ document.getElementById('langToggle').addEventListener('click', function() {
   applyI18n();
 });
 
-/* ═══════════════════════════════════════════
-   Session Engine — 90min sessions from midnight
-   ═══════════════════════════════════════════ */
-var SESSIONS = [
-  {name:'MIDNIGHT COMPILE', sub:'深夜编译', ascii:'moon'},
-  {name:'DREAM DEBUG', sub:'调试梦境', ascii:'wave'},
-  {name:'SILENT DEPLOY', sub:'静默部署', ascii:'circuit'},
-  {name:'DAWN PATCH', sub:'黎明补丁', ascii:'constellation'},
-  {name:'MORNING ITER', sub:'清晨迭代', ascii:'geo'},
-  {name:'BREAKFAST ARCH', sub:'架构早餐', ascii:'blueprint'},
-  {name:'FULL STACK', sub:'全栈日场', ascii:'diamond'},
-  {name:'NOON REFACTOR', sub:'重构午时', ascii:'spiral'},
-  {name:'LUNCH BREAK', sub:'午间休场', ascii:'face'},
-  {name:'AFTERNOON BUILD', sub:'午后构建', ascii:'structure'},
-  {name:'SUNSET COMMIT', sub:'日落提交', ascii:'waves'},
-  {name:'EVENING REVIEW', sub:'黄昏审查', ascii:'pcb'},
-  {name:'GOLDEN HOUR', sub:'黄金时段', ascii:'starfield'},
-  {name:'NIGHT SHIFT', sub:'夜间轮值', ascii:'fractal'},
-  {name:'LATE NIGHT OPS', sub:'深夜运维', ascii:'terminal'},
-  {name:'LAST COMPILE', sub:'末次编译', ascii:'symbol'}
+/* ═══════════════════════════
+   Session Engine
+   ═══════════════════════════ */
+var ASCII_TYPES = [
+  'moon','wave','circuit','constellation','geo','blueprint','diamond',
+  'spiral','face','structure','waves','pcb','starfield','fractal','terminal','symbol'
 ];
 
 function getSession(now) {
-  // now: Date or timestamp
   if (!(now instanceof Date)) now = new Date(now);
   var midnight = new Date(now);
   midnight.setHours(0,0,0,0);
@@ -412,180 +395,162 @@ function getSession(now) {
   var end   = new Date(start.getTime() + 90 * 60000);
   return {
     index: idx,
-    name: SESSIONS[idx].name,
-    sub: SESSIONS[idx].sub,
-    ascii: SESSIONS[idx].ascii,
+    ascii: ASCII_TYPES[idx],
     start: start,
     end: end,
     remaining: Math.max(0, end - now)
   };
 }
 
-/* ═══════════════════════════════════════════
-   ASCII Avatar Generator
-   ═══════════════════════════════════════════ */
-var ASCII = {};
+function getSessionName(idx) {
+  return DICT[lang].sessions[idx];
+}
 
+function updateSessionText() {
+  var s = getSessionName(currentSession ? currentSession.index : 0);
+  document.getElementById('filmTitle').textContent = s.name;
+  document.getElementById('filmSubtitle').textContent = s.sub;
+}
+
+/* ═══════════════════════════
+   ASCII Avatar
+   ═══════════════════════════ */
+var ASCII = {};
 ASCII._seed = Math.floor(Math.random()*2147483647);
 ASCII._rng = function() {
   ASCII._seed = (ASCII._seed * 16807 + 0) % 2147483647;
   return (ASCII._seed - 1) / 2147483646;
 };
 ASCII.pick = function(arr) { return arr[Math.floor(ASCII._rng() * arr.length)]; };
-
 ASCII.face = function() {
-  var eyes = ASCII.pick(['● ●','o o','• •','O O','@ @']);
-  var m = ASCII.pick(['____','────','﹏﹏﹏','~~~~']);
-  var r=[];
-  r.push('  .---.');
-  r.push(' | '+eyes+' |');
-  r.push(' |  '+m+'  |');
-  r.push('  \'---\'');
-  return r.join('\n');
+  var e=ASCII.pick(['● ●','o o','• •','O O','@ @']);
+  var m=ASCII.pick(['____','────','﹏﹏﹏','~~~~']);
+  return '  .---.\n | '+e+' |\n |  '+m+'  |\n  \'---\'';
 };
 ASCII.diamond = function() {
-  var c='◆'; var f='·'; var n=4, r=[];
+  var c='◆',f='·',n=4,r=[];
   for(var i=0;i<n;i++){ var s=' '.repeat(n-i-1); r.push(i===0?s+c:s+c+f.repeat(i*2-1)+c); }
   for(var i=n-2;i>=0;i--){ var s=' '.repeat(n-i-1); r.push(i===0?s+c:s+c+f.repeat(i*2-1)+c); }
   return r.join('\n');
 };
 ASCII.wave = function() {
-  var r=[], w=13;
-  for(var y=0;y<7;y++){
-    var l='';
-    for(var x=0;x<w;x++){
-      var v=Math.sin(x/3+y/1.5)*Math.cos(y/2+x/4);
-      l+=v>0.3?'~':v<-0.3?'≈':Math.abs(v)<.15?'·':' ';
-    }
-    r.push(l);
-  }
+  var r=[],w=13;
+  for(var y=0;y<7;y++){ var l=''; for(var x=0;x<w;x++){ var v=Math.sin(x/3+y/1.5)*Math.cos(y/2+x/4); l+=v>0.3?'~':v<-0.3?'≈':Math.abs(v)<.15?'·':' '; } r.push(l); }
   return r.join('\n');
 };
 ASCII.constellation = function() {
-  var stars=['✦','✧','·','•','⋆']; var r=[], w=14, h=9;
-  var grid=[]; for(var y=0;y<h;y++){ grid[y]=[]; for(var x=0;x<w;x++) grid[y][x]=' '; }
-  for(var i=0;i<8;i++){ grid[Math.floor(ASCII._rng()*h)][Math.floor(ASCII._rng()*w)]=ASCII.pick(stars); }
-  for(var y=0;y<h;y++) r.push(grid[y].join(''));
-  return r.join('\n');
+  var stars=['✦','✧','·','•','⋆'],w=14,h=9;
+  var g=[]; for(var y=0;y<h;y++){ g[y]=[]; for(var x=0;x<w;x++) g[y][x]=' '; }
+  for(var i=0;i<8;i++) g[Math.floor(ASCII._rng()*h)][Math.floor(ASCII._rng()*w)]=ASCII.pick(stars);
+  var r=[]; for(var y=0;y<h;y++) r.push(g[y].join('')); return r.join('\n');
 };
 ASCII.circuit = function() {
-  var w=13, h=8, g=[];
+  var w=13,h=8,g=[];
   for(var y=0;y<h;y++){ g[y]=[]; for(var x=0;x<w;x++) g[y][x]=' '; }
   for(var y=1;y<h;y+=2) for(var x=0;x<w;x++) if(ASCII._rng()>.3) g[y][x]='─';
   for(var x=1;x<w;x+=3) for(var y=0;y<h;y++){ if(g[y][x]==='─') g[y][x]='┼'; else if(ASCII._rng()>.4) g[y][x]='│'; }
   for(var i=0;i<6;i++) g[Math.floor(ASCII._rng()*h)][Math.floor(ASCII._rng()*w)]=ASCII.pick(['●','○','◉','◆']);
-  var l=[]; for(var y=0;y<h;y++) l.push(g[y].join('')); return l.join('\n');
+  var r=[]; for(var y=0;y<h;y++) r.push(g[y].join('')); return r.join('\n');
 };
-ASCII.geo = function() { return ASCII.diamond(); };
-ASCII.structure = function() { var r=[], t=['▀','▄','█','▌','▐']; for(var y=0;y<7;y++){ var l=''; for(var x=0;x<11;x++) l+=ASCII.pick(t); r.push(l); } return r.join('\n'); };
+ASCII.geo = ASCII.diamond;
+ASCII.structure = function() {
+  var t=['▀','▄','█','▌','▐'],r=[];
+  for(var y=0;y<7;y++){ var l=''; for(var x=0;x<11;x++) l+=ASCII.pick(t); r.push(l); }
+  return r.join('\n');
+};
 ASCII.fractal = function() {
-  var r=[], w=15;
-  for(var y=0;y<9;y++){
-    var l='';
-    for(var x=0;x<w;x++){
-      var v=(x^y)/3%1;
-      l+=v<.25?'▓':v<.5?'▒':v<.75?'░':' ';
-    }
-    r.push(l);
-  }
+  var r=[],w=15;
+  for(var y=0;y<9;y++){ var l=''; for(var x=0;x<w;x++){ var v=(x^y)/3%1; l+=v<.25?'▓':v<.5?'▒':v<.75?'░':' '; } r.push(l); }
   return r.join('\n');
 };
 ASCII.blueprint = function() {
-  var r=[], w=13;
-  for(var y=0;y<7;y++){
-    var l='';
-    for(var x=0;x<w;x++){
-      if(y%2===0||x%3===0) l+='┼'; else l+=' ';
-    }
-    r.push(l);
-  }
+  var r=[],w=13;
+  for(var y=0;y<7;y++){ var l=''; for(var x=0;x<w;x++){ l+=(y%2===0||x%3===0)?'┼':' '; } r.push(l); }
   return r.join('\n');
 };
-
 var ASCII_MAP = {
-  moon: function(){ var r=['    ☽','   ☽  ','  ✦   ','   ·  ']; return r.join('\n'); },
+  moon: function(){ return '    ☽\n   ☽  \n  ✦   \n   ·  '; },
   wave: ASCII.wave, circuit: ASCII.circuit, constellation: ASCII.constellation,
   geo: ASCII.geo, blueprint: ASCII.blueprint, diamond: ASCII.diamond,
-  spiral: function(){ var r=[],n=5; for(var i=0;i<n;i++){ var s=' '.repeat(n-i-1), c='@'; r.push(s+'@'+'·'.repeat(i*2-1)+(i>0?'@':'')); } for(var i=n-2;i>=0;i--){ var s=' '.repeat(n-i-1); r.push(s+'@'+'·'.repeat(i*2-1)+(i>0?'@':'')); } return r.join('\n'); },
+  spiral: function(){
+    var n=5,r=[]; for(var i=0;i<n;i++){ var s=' '.repeat(n-i-1); r.push(s+'@'+'·'.repeat(i*2-1)+(i>0?'@':'')); }
+    for(var i=n-2;i>=0;i--){ var s=' '.repeat(n-i-1); r.push(s+'@'+'·'.repeat(i*2-1)+(i>0?'@':'')); }
+    return r.join('\n');
+  },
   face: ASCII.face, structure: ASCII.structure,
-  pcb: function(){ return ASCII.circuit(); },
-  starfield: ASCII.constellation,
-  terminal: function(){ var r=[' > _',' > ./build',' > deploy',' > ...',' > done  ✓']; return r.join('\n'); },
+  pcb: function(){ return ASCII.circuit(); }, starfield: ASCII.constellation,
+  terminal: function(){ return ' > _\n > ./build\n > deploy\n > ...\n > done  ✓'; },
   fractal: ASCII.fractal,
-  symbol: function(){ var r=['  ◆ ◇ ◆',' ◇ ◆ ◇','  ◆ ◇ ◆']; return r.join('\n'); },
-  waves: function(){ var r=[],w=13; for(var y=0;y<7;y++){ var l=''; for(var x=0;x<w;x++){ var v=Math.sin(x/2+y)*Math.cos(y+x/3); l+=v>0.4?'◠':v<-0.4?'◡':'~'; } r.push(l); } return r.join('\n'); }
+  symbol: function(){ return '  ◆ ◇ ◆\n ◇ ◆ ◇\n  ◆ ◇ ◆'; },
+  waves: function(){
+    var r=[],w=13; for(var y=0;y<7;y++){ var l=''; for(var x=0;x<w;x++){ var v=Math.sin(x/2+y)*Math.cos(y+x/3); l+=v>0.4?'◠':v<-0.4?'◡':'~'; } r.push(l); }
+    return r.join('\n');
+  }
 };
 
-/* ═══════════════════════════════════════════
+/* ═══════════════════════════
    Timer Controller
-   ═══════════════════════════════════════════ */
+   ═══════════════════════════ */
 var lastSessionIdx = -1;
 var currentSession = null;
 
-function updateTimers() {
+function updateAll() {
   var now = new Date();
   currentSession = getSession(now);
 
-  // Session title
-  document.getElementById('filmTitle').textContent = currentSession.name;
-  document.getElementById('filmSubtitle').textContent = currentSession.sub;
+  // Session text
+  var s = getSessionName(currentSession.index);
+  document.getElementById('filmTitle').textContent = s.name;
+  document.getElementById('filmSubtitle').textContent = s.sub;
 
-  // Meta: date
-  var yyyy = now.getFullYear();
-  var mm = String(now.getMonth()+1).padStart(2,'0');
-  var dd = String(now.getDate()).padStart(2,'0');
-  document.getElementById('metaDate').textContent = yyyy+'-'+mm+'-'+dd;
+  // Date
+  var y=now.getFullYear(), m=String(now.getMonth()+1).padStart(2,'0'), d=String(now.getDate()).padStart(2,'0');
+  document.getElementById('metaDate').textContent = y+'-'+m+'-'+d;
 
-  // Meta: showtime
-  var sh = String(currentSession.start.getHours()).padStart(2,'0');
-  var sm = String(currentSession.start.getMinutes()).padStart(2,'0');
-  var eh = String(currentSession.end.getHours()).padStart(2,'0');
-  var em = String(currentSession.end.getMinutes()).padStart(2,'0');
+  // Showtime
+  var sh=String(currentSession.start.getHours()).padStart(2,'0');
+  var sm=String(currentSession.start.getMinutes()).padStart(2,'0');
+  var eh=String(currentSession.end.getHours()).padStart(2,'0');
+  var em=String(currentSession.end.getMinutes()).padStart(2,'0');
   document.getElementById('metaShowtime').textContent = sh+':'+sm+' — '+eh+':'+em;
 
   // Countdown
-  var rem = currentSession.remaining;
-  var mins = Math.floor(rem / 60000);
-  var secs = Math.floor((rem % 60000) / 1000);
-  var cdEl = document.getElementById('countdown');
+  var rem=currentSession.remaining, mins=Math.floor(rem/60000), secs=Math.floor((rem%60000)/1000);
+  var cdEl=document.getElementById('countdown');
   cdEl.textContent = String(mins).padStart(2,'0')+':'+String(secs).padStart(2,'0');
-  cdEl.classList.toggle('urgent', rem < 60000);
+  cdEl.classList.toggle('urgent', rem<60000);
 
-  // Daily progress
-  var midnight = new Date(now); midnight.setHours(0,0,0,0);
-  var dayPct = ((now - midnight) / 86400000) * 100;
-  document.getElementById('todayFill').style.width = dayPct.toFixed(1)+'%';
-  document.getElementById('todayPct').textContent = dayPct.toFixed(1)+'%';
+  // Today: session/16 + progress bar
+  var idx = currentSession.index;
+  document.getElementById('todayFill').style.width = ((idx+1)/16*100).toFixed(1)+'%';
+  document.getElementById('todayPct').textContent = (idx+1)+'/16';
 
-  // Yearly progress
-  var yearStart = new Date(now.getFullYear(), 0, 1);
-  var yearEnd = new Date(now.getFullYear()+1, 0, 1);
-  var yearPct = ((now - yearStart) / (yearEnd - yearStart)) * 100;
-  document.getElementById('yearFill').style.width = yearPct.toFixed(1)+'%';
-  document.getElementById('yearPct').textContent = yearPct.toFixed(1)+'%';
+  // Year: day-of-year/365 leap-year-aware
+  var yearStart = new Date(y, 0, 1);
+  var yearEnd = new Date(y+1, 0, 1);
+  var totalDays = Math.round((yearEnd - yearStart) / 86400000); // 365 or 366
+  var dayOfYear = Math.floor((now - yearStart) / 86400000) + 1;
+  document.getElementById('yearFill').style.width = (dayOfYear/totalDays*100).toFixed(1)+'%';
+  document.getElementById('yearPct').textContent = dayOfYear+'/'+totalDays;
 
-  // Session change detection
-  if (lastSessionIdx !== -1 && lastSessionIdx !== currentSession.index) {
-    triggerTear();
-  }
-  lastSessionIdx = currentSession.index;
+  // Session change
+  if (lastSessionIdx !== -1 && lastSessionIdx !== idx) triggerTear();
+  lastSessionIdx = idx;
 }
 
-/* ═══════════════════════════════════════════
+/* ═══════════════════════════
    Tear Animation
-   ═══════════════════════════════════════════ */
+   ═══════════════════════════ */
 function triggerTear() {
   var ticket = document.getElementById('ticket');
-  // Regenerate seed for new session
   ASCII._seed = Math.floor(Math.random()*2147483647);
-
   ticket.classList.add('tearing');
   setTimeout(function() {
     updateAvatar();
-    updateTimers();
+    updateAll();
     ticket.classList.remove('tearing');
     ticket.classList.add('fresh');
-    setTimeout(function() { ticket.classList.remove('fresh'); }, 500);
+    setTimeout(function(){ ticket.classList.remove('fresh'); }, 500);
   }, 450);
 }
 
@@ -595,26 +560,20 @@ function updateAvatar() {
   document.getElementById('avatar').textContent = gen();
 }
 
-/* ═══════════════════════════════════════════
-   Ticket Export (Canvas → PNG)
-   ═══════════════════════════════════════════ */
+/* ═══════════════════════════
+   Ticket Export
+   ═══════════════════════════ */
 document.getElementById('saveBtn').addEventListener('click', function() {
   var ticket = document.getElementById('ticket');
   var toast = document.getElementById('toast');
-
-  // Use html2canvas approach: create SVG foreignObject
   var rect = ticket.getBoundingClientRect();
   var scale = 2;
-  var w = rect.width * scale;
-  var h = rect.height * scale;
-
   var canvas = document.createElement('canvas');
-  canvas.width = w;
-  canvas.height = h;
+  canvas.width = rect.width * scale;
+  canvas.height = rect.height * scale;
   var ctx = canvas.getContext('2d');
   ctx.scale(scale, scale);
 
-  // Build SVG with foreignObject
   var styles = Array.from(document.querySelectorAll('style')).map(function(s){return s.textContent;}).join('\n');
   var html = ticket.outerHTML;
   var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="'+rect.width+'" height="'+rect.height+'">'+
@@ -633,31 +592,26 @@ document.getElementById('saveBtn').addEventListener('click', function() {
     canvas.toBlob(function(blob) {
       var a = document.createElement('a');
       a.href = URL.createObjectURL(blob);
-      a.download = 'ticket-'+currentSession.name.replace(/\s/g,'-')+'.png';
+      var s = getSessionName(currentSession ? currentSession.index : 0);
+      a.download = 'ticket-'+s.name.replace(/\s/g,'-')+'.png';
       a.click();
       toast.textContent = t('saved');
       toast.classList.add('show');
       setTimeout(function(){ toast.classList.remove('show'); }, 2000);
     }, 'image/png');
   };
-
   img.src = url;
 });
 
-/* ═══════════════════════════════════════════
+/* ═══════════════════════════
    Init
-   ═══════════════════════════════════════════ */
+   ═══════════════════════════ */
 applyI18n();
-updateTimers();
+updateAll();
 updateAvatar();
-
-// Tick every second
-setInterval(function() {
-  updateTimers();
-}, 1000);
+setInterval(updateAll, 1000);
 
 })();
 </script>
-
 </body>
 </html>
