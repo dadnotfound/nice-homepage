@@ -1,0 +1,319 @@
+/* ═══════════════════════════
+   Zen Styles — Pentagram 信息建筑风格
+   哲学内核：时间即存在 · 理性克制 · 精确表达
+   ═══════════════════════════ */
+
+/* 配色变量 */
+:root {
+  /* 主色系：深墨绿（克制、理性） */
+  --penta-ink: #2d3636;           /* 深墨绿（主色 + 强调色） */
+  --penta-dim: #666;              /* 中灰（次要信息） */
+  --penta-light: #999;            /* 浅灰（边框） */
+
+  /* 背景色系：暖米白（温润、不刺眼） */
+  --penta-bg: #f5f5f0;            /* 暖米白 */
+  --penta-bar-bg: #e0e0e0;        /* 进度条背景 */
+
+  /* 功能色 */
+  --penta-shadow: rgba(45, 52, 54, 0.1);  /* 阴影 */
+
+  /* 间距（继承自 base.css） */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 12px;
+  --spacing-lg: 16px;
+  --spacing-xl: 24px;
+  --spacing-xxl: 32px;
+}
+
+/* 全局样式 */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+  background: var(--penta-bg);
+  color: var(--penta-ink);
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  overflow: hidden;
+}
+
+/* ═══════════════════════════
+   动画 1：背景网格流动
+   表达时间的流逝不是跳变而是持续流动
+   ═══════════════════════════ */
+
+.flow-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    linear-gradient(90deg, rgba(45, 52, 54, 0.03) 1px, transparent 1px),
+    linear-gradient(rgba(45, 52, 54, 0.03) 1px, transparent 1px);
+  background-size: 80px 80px;
+  animation: gridMove 20s linear infinite;
+  z-index: -1;
+}
+
+@keyframes gridMove {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(80px, 80px); }
+}
+
+/* ═══════════════════════════
+   动画 2：文字淡入
+   名字 → 元数据 → 时间区块依次淡入
+   建立清晰的视觉层级和节奏感
+   ═══════════════════════════ */
+
+.name {
+  font-size: 112px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  margin-bottom: var(--spacing-xl);
+  opacity: 0;
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 主容器 */
+.container {
+  max-width: 800px;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+/* 元数据区块：瑞士网格系统 */
+.header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-xl);
+  margin-bottom: var(--spacing-xl);
+}
+
+.meta-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-md);
+  align-content: start;
+  animation: fadeIn 1s ease-out 0.3s forwards;
+  opacity: 0;
+}
+
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+
+/* 元数据卡片：理性克制 */
+.meta-item {
+  padding: var(--spacing-md) var(--spacing-lg);
+  border: 2px solid var(--penta-ink);
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+}
+
+.meta-item:hover {
+  transform: translateX(4px);
+  box-shadow: 2px 2px 0 var(--penta-shadow);
+}
+
+.meta-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--penta-dim);
+  margin-bottom: 4px;
+}
+
+.meta-value {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--penta-ink);
+}
+
+/* ═══════════════════════════
+   时间区块：核心焦点
+   当下存在的核心表达
+   ═══════════════════════════ */
+
+.time-section {
+  border-top: 2px solid var(--penta-ink);
+  padding-top: var(--spacing-xl);
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--spacing-xl);
+  animation: fadeIn 1s ease-out 0.6s forwards;
+  opacity: 0;
+}
+
+.session {
+  font-size: 48px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+.session-subtitle {
+  font-size: 14px;
+  color: var(--penta-dim);
+  margin-top: 8px;
+}
+
+.session-number {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--penta-ink);
+}
+
+/* 进度区块：时间的流动 */
+.progress {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  justify-content: center;
+}
+
+.countdown {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--penta-dim);
+  font-family: 'SF Mono', 'Monaco', monospace;
+  letter-spacing: 0.05em;
+}
+
+.progress-bar {
+  height: 6px;
+  background: var(--penta-bar-bg);
+  width: 100%;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--penta-ink);
+  width: 45%;  /* 动态计算 */
+  transition: width 1s linear;
+  position: relative;
+}
+
+/* ═══════════════════════════
+   动画 3：进度条流动（Shimmer）
+   时间不是线性而是脉动
+   ═══════════════════════════ */
+
+.progress-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(255,255,255,0.3) 50%,
+    transparent 100%
+  );
+  animation: shimmer 2s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0%, 100% { transform: translateX(-100%); }
+  50% { transform: translateX(100%); }
+}
+
+/* ═══════════════════════════
+   社交链接：精确的表达
+   ═══════════════════════════ */
+
+.social-row {
+  display: flex;
+  gap: var(--spacing-xl);
+  margin-top: var(--spacing-xxl);
+  animation: fadeIn 1s ease-out 0.9s forwards;
+  opacity: 0;
+}
+
+.social-link {
+  font-size: 12px;
+  color: var(--penta-dim);
+  text-decoration: none;
+  padding: var(--spacing-md) var(--spacing-lg);
+  border: 1px solid var(--penta-light);
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.social-link:hover {
+  border-color: var(--penta-ink);
+  color: var(--penta-ink);
+  transform: translateY(-2px);
+}
+
+/* ═══════════════════════════
+   悬浮 UI：语言切换
+   ═══════════════════════════ */
+
+.lang-toggle {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  font-size: 12px;
+  padding: var(--spacing-md) var(--spacing-lg);
+  border: 1px solid var(--penta-light);
+  background: transparent;
+  color: var(--penta-dim);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 4px;
+}
+
+.lang-toggle:hover {
+  border-color: var(--penta-ink);
+  color: var(--penta-ink);
+}
+
+/* ═══════════════════════════
+   响应式：精准适配
+   ═══════════════════════════ */
+
+@media (max-width: 600px) {
+  .name {
+    font-size: 72px;
+  }
+  .session {
+    font-size: 32px;
+  }
+  .time-section {
+    grid-template-columns: 1fr;
+  }
+  body {
+    padding: 24px;
+  }
+  .header {
+    grid-template-columns: 1fr;
+  }
+  .meta-grid {
+    grid-template-columns: 1fr;
+  }
+}

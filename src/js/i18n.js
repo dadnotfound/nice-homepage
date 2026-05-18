@@ -7,25 +7,32 @@ let lang = localStorage.getItem('lang') || 'zh';
 
 // 翻译词典
 const DICT = {
-  // 现有翻译
+  // 时间系统翻译
   zh: {
-    cinema: '本地主机',
-    stub: '存根',
-    save: '保存票根',
-    date: '日期',
-    showtime: '场次',
-    price: '票价',
-    priceVal: '开源',
-    seat: '127排 · 0.0.1座',
-    admit: '凭票入场',
-    countdown: '距离开机剩余',
-    today: '今日场次',
-    year: '年度天数',
-    slogan: '人生如电影。走到摄影机后面去。',
-    saved: '票根已保存 ✓',
-    feishu: '飞书',
+    session: '会话',
+    saved: '已保存 ✓',
 
-    // 新增思考页面翻译
+    // 会话名称
+    sessions: [
+      { name: '深度阅读', sub: '当下存在' },
+      { name: '创意写作', sub: '灵感涌现' },
+      { name: '编码时间', sub: '逻辑构建' },
+      { name: '冥想反思', sub: '内在对话' },
+      { name: '运动健身', sub: '身心合一' },
+      { name: '学习成长', sub: '知识积累' },
+      { name: '社交连接', sub: '关系构建' },
+      { name: '艺术创作', sub: '美的表达' },
+      { name: '自然体验', sub: '与自然对话' },
+      { name: '规划整理', sub: '系统思维' },
+      { name: '休息恢复', sub: '能量补充' },
+      { name: '陪伴家人', sub: '情感交流' },
+      { name: '烹饪美食', sub: '生活艺术' },
+      { name: '观影学习', sub: '视觉思考' },
+      { name: '音乐欣赏', sub: '精神共鸣' },
+      { name: '整理记录', sub: '知识沉淀' }
+    ],
+
+    // 思考页面翻译
     thoughts: {
       title: '思考',
       back: '返回主页',
@@ -36,23 +43,30 @@ const DICT = {
   },
 
   en: {
-    cinema: 'LOCALHOST',
-    stub: 'STUB',
-    save: 'SAVE TICKET',
-    date: 'DATE',
-    showtime: 'SHOW',
-    price: 'PRICE',
-    priceVal: 'OPEN SOURCE',
-    seat: 'ROW 127 · SEAT 0.0.1',
-    admit: 'ADMIT ONE',
-    countdown: 'Until roll',
-    today: 'REEL',
-    year: 'DAYS',
-    slogan: 'Life unfolds like a film. Step behind the camera.',
-    saved: 'Ticket saved  ✓',
-    feishu: 'Feishu',
+    session: 'SESSION',
+    saved: 'Saved  ✓',
 
-    // 新增思考页面翻译
+    // Session names
+    sessions: [
+      { name: 'Deep Reading', sub: 'Present Existence' },
+      { name: 'Creative Writing', sub: 'Inspiration Flow' },
+      { name: 'Coding Time', sub: 'Logic Building' },
+      { name: 'Meditation', sub: 'Inner Dialogue' },
+      { name: 'Exercise', sub: 'Mind-Body Unity' },
+      { name: 'Learning', sub: 'Knowledge Growth' },
+      { name: 'Social Connect', sub: 'Relationship Building' },
+      { name: 'Art Creation', sub: 'Artistic Expression' },
+      { name: 'Nature Experience', sub: 'Dialogue with Nature' },
+      { name: 'Planning', sub: 'Systematic Thinking' },
+      { name: 'Rest', sub: 'Energy Recharge' },
+      { name: 'Family Time', sub: 'Emotional Connection' },
+      { name: 'Cooking', sub: 'Culinary Art' },
+      { name: 'Film Study', sub: 'Visual Thinking' },
+      { name: 'Music Appreciation', sub: 'Spiritual Resonance' },
+      { name: 'Reflection', sub: 'Knowledge Integration' }
+    ],
+
+    // Thoughts page translations
     thoughts: {
       title: 'Thoughts',
       back: 'Back to Home',

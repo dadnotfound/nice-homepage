@@ -3,88 +3,70 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>nice — 编程即艺术</title>
-  <meta name="description" content="一个将编程生活比作电影票的个人主页">
-  <meta name="keywords" content="个人主页,编程,电影票,时间可视化">
+  <title>nice — 时间即存在</title>
+  <meta name="description" content="一个表达「时间即存在」哲学的个人主页">
+  <meta name="keywords" content="个人主页,哲学,时间,极简设计">
   <meta name="author" content="奈思">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
 
   <!-- 模块化CSS -->
   <link rel="stylesheet" href="css/base.css">
-  <link rel="stylesheet" href="css/ticket.css">
+  <link rel="stylesheet" href="css/zen.css">
 </head>
 <body>
 
-  <!-- 导航按钮组 -->
-  <button class="lang-toggle" id="langToggle" title="Switch language">EN</button>
-  <button class="btn btn-primary" id="thoughtsBtn" title="查看思考">
-    思考
-  </button>
+  <!-- 背景流动网格 -->
+  <div class="flow-bg"></div>
 
-  <!-- 票据容器 -->
+  <!-- 悬浮 UI：语言切换 -->
+  <button class="lang-toggle" id="langToggle">EN</button>
+
+  <!-- 主容器 -->
   <div class="container">
-    <div class="ticket" id="ticket">
-      <div class="stub">
-        <div class="stub-label" id="stubLabel"></div>
-        <div class="stub-avatar" id="avatar"></div>
-        <div class="stub-initials">奈思</div>
-        <button class="stub-save" id="saveBtn"></button>
-      </div>
-      <div class="body">
-        <div class="body-header">
-          <div class="cinema" id="cinema"></div>
-          <div class="film-title" id="filmTitle"></div>
-          <div class="film-subtitle" id="filmSubtitle"></div>
+    <!-- 名字：112px 大锚点 -->
+    <div class="name">奈思</div>
+
+    <!-- 元数据网格：理性分栏 -->
+    <div class="header">
+      <div class="meta-grid">
+        <div class="meta-item">
+          <span class="meta-label" id="labelSession">Session</span>
+          <span class="meta-value" id="sessionValue">04/16</span>
         </div>
-        <div class="meta">
-          <div class="meta-item">
-            <span class="meta-label" id="labelDate"></span>
-            <span class="meta-value" id="metaDate"></span>
-          </div>
-          <div class="meta-item">
-            <span class="meta-label" id="labelShowtime"></span>
-            <span class="meta-value" id="metaShowtime"></span>
-          </div>
-          <div class="meta-item">
-            <span class="meta-label" id="labelPrice"></span>
-            <span class="meta-value" id="metaPrice"></span>
-          </div>
-        </div>
-        <div class="ticket-footer-row">
-          <span class="seat" id="seat"></span>
-          <span class="admit" id="admit"></span>
-        </div>
-        <div class="tear-line">∞ ∞ ∞ ∞ ∞ ∞ ∞ ∞ ∞</div>
-        <div class="slogan" id="slogan"></div>
-        <div class="countdown-row">
-          <span class="countdown-label" id="countdownLabel"></span>
-          <span class="countdown-value" id="countdown">89:59</span>
-        </div>
-        <div class="progress-group">
-          <div class="progress-row">
-            <span class="progress-label" id="labelToday"></span>
-            <div class="progress-bar">
-              <div class="progress-fill" id="todayFill"></div>
-            </div>
-            <span class="progress-pct" id="todayPct"></span>
-          </div>
-        </div>
-        <div class="social-row">
-          <a href="https://x.com/Myrfather" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-            X
-          </a>
-          <a href="https://github.com/dadnotfound" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
-            GitHub
-          </a>
+        <div class="meta-item">
+          <span class="meta-label" id="labelYear">Year Day</span>
+          <span class="meta-value" id="yearValue">138/365</span>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- 提示消息 -->
-  <div class="toast" id="toast"></div>
+    <!-- 时间区块：核心焦点 -->
+    <div class="time-section">
+      <div class="session-info">
+        <div class="session" id="sessionName">深度阅读</div>
+        <div class="session-subtitle">
+          <span class="session-number" id="sessionNumber">SESSION 04</span>
+          <span id="sessionSubtitle">· 当下存在</span>
+        </div>
+      </div>
+      <div class="progress">
+        <div class="countdown" id="countdown">⏱ 47:23 left</div>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 社交链接 -->
+    <div class="social-row">
+      <a href="https://x.com/Myrfather" target="_blank" rel="noopener" class="social-link">
+        X
+      </a>
+      <a href="https://github.com/dadnotfound" target="_blank" rel="noopener" class="social-link">
+        GitHub
+      </a>
+    </div>
+  </div>
 
   <!-- 模块化JavaScript -->
   <script src="js/utils.js"></script>
@@ -96,7 +78,7 @@
   <script>
     // 页面初始化
     document.addEventListener('DOMContentLoaded', function() {
-      // 初始化票据功能
+      // 初始化票据功能（改为时间管理）
       ticket.init();
 
       // 初始化导航系统（自动处理按钮事件）
