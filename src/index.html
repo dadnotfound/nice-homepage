@@ -3,7 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>nice — 电影票</title>
+<title>nice — 编程即艺术</title>
+<meta name="description" content="一个将编程生活比作电影票的个人主页，每90分钟一场新的人生编程 session，用代码书写时光的诗篇">
+<meta name="keywords" content="个人主页,编程,电影票,时间可视化,开发者,创意展示">
+<meta name="author" content="奈思">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
 <style>
 :root {
   --bg: #0a0a0c;
@@ -198,7 +202,7 @@ body {
     <div class="stub">
       <div class="stub-label" id="stubLabel"></div>
       <div class="stub-avatar" id="avatar"></div>
-      <div class="stub-initials">B&T</div>
+      <div class="stub-initials">奈思</div>
       <button class="stub-save" id="saveBtn"></button>
     </div>
     <div class="body">
@@ -290,22 +294,22 @@ var DICT = {
     saved: '票根已保存 ✓',
     feishu: '飞书',
     sessions: [
-      {name:'深夜编译', sub:'MIDNIGHT COMPILE'},
-      {name:'调试梦境', sub:'DREAM DEBUG'},
-      {name:'静默部署', sub:'SILENT DEPLOY'},
-      {name:'黎明补丁', sub:'DAWN PATCH'},
-      {name:'清晨迭代', sub:'MORNING ITER'},
-      {name:'架构早餐', sub:'BREAKFAST ARCH'},
-      {name:'全栈日场', sub:'FULL STACK'},
-      {name:'重构午时', sub:'NOON REFACTOR'},
-      {name:'午间休场', sub:'LUNCH BREAK'},
-      {name:'午后构建', sub:'AFTERNOON BUILD'},
-      {name:'日落提交', sub:'SUNSET COMMIT'},
-      {name:'黄昏审查', sub:'EVENING REVIEW'},
-      {name:'黄金时段', sub:'GOLDEN HOUR'},
-      {name:'夜间轮值', sub:'NIGHT SHIFT'},
-      {name:'深夜运维', sub:'LATE NIGHT OPS'},
-      {name:'末次编译', sub:'LAST COMPILE'}
+      {name:'深夜编译', sub:'MIDNIGHT COMPILE', desc:'夜深人静时，与编译器对话，让代码在寂静中生长'},
+      {name:'调试梦境', sub:'DREAM DEBUG', desc:'潜入代码的梦境世界，捕捉那些只在黑暗中显现的bug'},
+      {name:'静默部署', sub:'SILENT DEPLOY', desc:'在无人注视的角落，见证系统优雅蜕变'},
+      {name:'黎明补丁', sub:'DAWN PATCH', desc:'破晓时分，用补丁缝合昨夜的裂痕'},
+      {name:'清晨迭代', sub:'MORNING ITER', desc:'朝阳初升，为新的一天写下更好的代码'},
+      {name:'架构早餐', sub:'BREAKFAST ARCH', desc:'用架构师的思维，为想象力构筑坚实骨架'},
+      {name:'全栈日场', sub:'FULL STACK', desc:'日正当午，挥洒全栈才能，构建完整世界'},
+      {name:'重构午时', sub:'NOON REFACTOR', desc:'午间时分，用重构让代码更优雅'},
+      {name:'午间休场', sub:'LUNCH BREAK', desc:'暂停编译器，给思维片刻喘息'},
+      {name:'午后构建', sub:'AFTERNOON BUILD', desc:'午后阳光正好，将想法砌成现实'},
+      {name:'日落提交', sub:'SUNSET COMMIT', desc:'夕阳西下，为今日代码画上句号'},
+      {name:'黄昏审查', sub:'EVENING REVIEW', desc:'黄昏时分，用审视的眼光，为代码把关'},
+      {name:'黄金时段', sub:'GOLDEN HOUR', desc:'黄金一小时，创造最耀眼的代码诗篇'},
+      {name:'夜间轮值', sub:'NIGHT SHIFT', desc:'守夜人的职责，确保系统在黑暗中安然'},
+      {name:'深夜运维', sub:'LATE NIGHT OPS', desc:'深夜时分，运维是最后的守护者'},
+      {name:'末次编译', sub:'LAST COMPILE', desc:'当最后一行代码编译完成，准备明天的黎明'}
     ]
   },
   en: {
@@ -325,22 +329,22 @@ var DICT = {
     saved: 'Ticket saved  ✓',
     feishu: 'Feishu',
     sessions: [
-      {name:'MIDNIGHT COMPILE', sub:'深夜编译'},
-      {name:'DREAM DEBUG', sub:'调试梦境'},
-      {name:'SILENT DEPLOY', sub:'静默部署'},
-      {name:'DAWN PATCH', sub:'黎明补丁'},
-      {name:'MORNING ITER', sub:'清晨迭代'},
-      {name:'BREAKFAST ARCH', sub:'架构早餐'},
-      {name:'FULL STACK', sub:'全栈日场'},
-      {name:'NOON REFACTOR', sub:'重构午时'},
-      {name:'LUNCH BREAK', sub:'午间休场'},
-      {name:'AFTERNOON BUILD', sub:'午后构建'},
-      {name:'SUNSET COMMIT', sub:'日落提交'},
-      {name:'EVENING REVIEW', sub:'黄昏审查'},
-      {name:'GOLDEN HOUR', sub:'黄金时段'},
-      {name:'NIGHT SHIFT', sub:'夜间轮值'},
-      {name:'LATE NIGHT OPS', sub:'深夜运维'},
-      {name:'LAST COMPILE', sub:'末次编译'}
+      {name:'MIDNIGHT COMPILE', sub:'深夜编译', desc:'When the world sleeps, compilers whisper, creating life from logic'},
+      {name:'DREAM DEBUG', sub:'调试梦境', desc:'Entering the dream realm of code, catching bugs only visible in darkness'},
+      {name:'SILENT DEPLOY', sub:'静默部署', desc:'In the shadows, watch systems transform with graceful precision'},
+      {name:'DAWN PATCH', sub:'黎明补丁', desc:'At dawn, weave patches to mend the night\'s fractures'},
+      {name:'MORNING ITER', sub:'清晨迭代', desc:'Morning sun rises, writing better code for a new day'},
+      {name:'BREAKFAST ARCH', sub:'架构早餐', desc:'Architectural thinking, building strong bones for imagination'},
+      {name:'FULL STACK', sub:'全栈日场', desc:'High noon, wielding full-stack powers to build complete worlds'},
+      {name:'NOON REFACTOR', sub:'重构午时', desc:'Midday, refactoring code with elegant simplicity'},
+      {name:'LUNCH BREAK', sub:'午间休场', desc:'Pause the compiler, let the mind breathe'},
+      {name:'AFTERNOON BUILD', sub:'午后构建', desc:'Afternoon sun glows, turning ideas into reality'},
+      {name:'SUNSET COMMIT', sub:'日落提交', desc:'Sunset paints the sky, code for today finds its rest'},
+      {name:'EVENING REVIEW', desc:'黄昏审查', desc:'Dawn breaks, scrutinize every line with critical eye'},
+      {name:'GOLDEN HOUR', sub:'黄金时段', desc:'Golden hour, create the most brilliant code poetry'},
+      {name:'NIGHT SHIFT', sub:'夜间轮值', desc:'Night shift, the guardian ensuring peace in digital darkness'},
+      {name:'LATE NIGHT OPS', sub:'深夜运维', desc:'Late night, ops is the final sentinel'},
+      {name:'LAST COMPILE', sub:'末次编译', desc:'When the final line compiles, prepare for tomorrow\'s dawn'}
     ]
   }
 };

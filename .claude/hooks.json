@@ -1,0 +1,55 @@
+{
+  "hooks": {
+    "onFileChange": {
+      "enabled": true,
+      "pattern": "**/*",
+      "exclude": [
+        ".git/**",
+        "node_modules/**",
+        "*.log",
+        "*.tmp",
+        ".claude/**"
+      ],
+      "command": "echo '文件变更检测到: {{file}}'",
+      "debounce": 1000
+    },
+    "onLoopStart": {
+      "enabled": true,
+      "command": "echo '🔄 Loop 启动中...'",
+      "actions": [
+        "showNotification",
+        "updateStatus"
+      ]
+    },
+    "onLoopSuccess": {
+      "enabled": true,
+      "command": "echo '✅ Loop 测试通过'",
+      "actions": [
+        "playSound",
+        "showNotification"
+      ]
+    },
+    "onLoopError": {
+      "enabled": true,
+      "command": "echo '❌ Loop 测试失败'",
+      "actions": [
+        "showError",
+        "playErrorSound"
+      ]
+    },
+    "onBeforeCommit": {
+      "enabled": true,
+      "pattern": "src/**/*",
+      "command": "./auto-test-and-push.sh pre-commit",
+      "failOnError": true
+    },
+    "onAfterPush": {
+      "enabled": true,
+      "command": "echo '🎉 代码已推送到 GitHub'",
+      "actions": [
+        "showSuccess",
+        "openUrl:https://github.com/dadnotfound/nice-homepage"
+      ]
+    }
+  }
+}

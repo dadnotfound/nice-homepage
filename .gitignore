@@ -4,3 +4,12 @@
 !.dev.vars.example
 .env*
 !.env.example
+
+# Claude files
+.claude/hook.log
+.claude/.loop-status
+*.log
+
+# Temporary files
+*.tmp
+*.temp
