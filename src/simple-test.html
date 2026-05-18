@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>简单测试</title>
+  <style>
+    body { background: #0a0a0c; color: #e0ddd5; padding: 20px; }
+    .btn { background: rgba(212,168,83,0.1); border: 1px solid var(--accent); color: var(--accent); padding: 8px 16px; border-radius: 4px; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h1>简单测试</h1>
+  <p>这是一个简单测试页面</p>
+
+  <button class="btn" id="testBtn">点击我</button>
+  <div id="output"></div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('DOM loaded');
+      const btn = document.getElementById('testBtn');
+      const output = document.getElementById('output');
+
+      if (btn) {
+        btn.addEventListener('click', function() {
+          output.innerHTML = '<p style="color: #d4a853;">按钮点击成功！</p>';
+          console.log('Button clicked');
+        });
+      }
+    });
+  </script>
+</body>
+</html>

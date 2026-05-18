@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>调试页面</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/ticket.css">
+</head>
+<body>
+  <h1>调试页面</h1>
+  <p>如果能看到这个页面，说明CSS加载正常</p>
+
+  <button class="btn btn-primary" id="testBtn">测试按钮</button>
+
+  <div id="ticket" class="ticket">
+    <!-- 票据内容 -->
+  </div>
+
+  <script src="js/utils.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/ticket.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('页面加载完成');
+
+      const testBtn = document.getElementById('testBtn');
+      if (testBtn) {
+        testBtn.addEventListener('click', function() {
+          alert('按钮点击正常！');
+        });
+      }
+
+      // 测试 ticket 模块
+      if (window.ticket) {
+        console.log('ticket 模块加载成功');
+        ticket.init();
+      } else {
+        console.error('ticket 模块加载失败');
+      }
+    });
+  </script>
+</body>
+</html>

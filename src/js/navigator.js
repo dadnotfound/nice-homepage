@@ -281,6 +281,30 @@ class NavigationButtons {
       }
     });
 
+    // 主页导航按钮
+    const thoughtsBtn = document.getElementById('thoughtsBtn');
+    if (thoughtsBtn) {
+      thoughtsBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        this.navigator.navigateTo('thoughts', {
+          animation: 'slide',
+          direction: 'forward'
+        });
+      });
+    }
+
+    // 返回按钮
+    const backBtn = document.getElementById('backBtn');
+    if (backBtn) {
+      backBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        this.navigator.navigateTo('home', {
+          animation: 'slide',
+          direction: 'backward'
+        });
+      });
+    }
+
     // 初始 hash 状态检测
     const initialPage = window.location.hash === '#thoughts' ? 'thoughts' : 'home';
     if (this.navigator.currentPage !== initialPage) {
@@ -386,6 +410,9 @@ function initNavigator() {
   const navigator = new Navigator();
   const navigationButtons = new NavigationButtons(navigator);
   const pageLifecycle = new PageLifecycle(navigator);
+
+  // 添加hash路由处理
+  navigationButtons.init();
 
   // 暴露到全局
   window.Navigator = Navigator;
