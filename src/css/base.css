@@ -1,0 +1,210 @@
+/* ═══════════════════════════
+   Base Styles — 公共样式模块
+   ═══════════════════════════ */
+
+/* CSS变量 - 统一主题 */
+:root {
+  /* 基础颜色 */
+  --bg: #0a0a0c;
+  --ticket-bg: #1a1a1f;
+  --ticket-stub: #141418;
+  --text: #e0ddd5;
+  --text-dim: #8a857c;
+  --text-bright: #f5f0e6;
+  --accent: #d4a853;
+  --accent-dim: #8b6914;
+  --red: #c0392b;
+
+  /* 功能颜色 */
+  --divider: rgba(212,168,83,0.18);
+  --perf: rgba(255,255,255,0.06);
+  --progress-bg: rgba(255,255,255,0.06);
+  --progress-fill: #d4a853;
+
+  /* 间距 */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 12px;
+  --spacing-lg: 16px;
+  --spacing-xl: 24px;
+  --spacing-xxl: 32px;
+
+  /* 圆角 */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+
+  /* 阴影 */
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.3);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.3);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.4);
+
+  /* 动画 */
+  --transition-sm: 0.2s ease;
+  --transition-md: 0.35s ease;
+  --transition-lg: 0.5s ease;
+
+  /* 字体 */
+  --font-ticket: 'SF Mono','Menlo','Monaco','Courier New',monospace;
+  --font-ui: -apple-system,BlinkMacSystemFont,'SF Pro Display','Helvetica Neue',sans-serif;
+}
+
+/* 全局重置 */
+*,*::before,*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* 基础样式 */
+body {
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: var(--bg);
+  background-image: radial-gradient(ellipse at 50% 20%, rgba(212,168,83,0.06) 0%, transparent 70%);
+  font-family: var(--font-ui);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  padding: 12px;
+  color: var(--text);
+}
+
+/* 通用按钮 */
+.btn {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: var(--text-dim);
+  border-radius: var(--radius-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-size: 12px;
+  cursor: pointer;
+  font-family: var(--font-ui);
+  transition: all var(--transition-sm);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.btn:hover {
+  color: var(--text);
+  border-color: rgba(255,255,255,0.2);
+}
+
+.btn-primary {
+  background: rgba(212,168,83,0.1);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.btn-primary:hover {
+  background: rgba(212,168,83,0.2);
+}
+
+/* 卡片通用样式 */
+.card {
+  background: var(--ticket-bg);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  transition: transform var(--transition-md), box-shadow var(--transition-md);
+  will-change: transform;
+  contain: layout style;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* 通用布局容器 */
+.container {
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* 文字样式 */
+.text-dim { color: var(--text-dim); }
+.text-bright { color: var(--text-bright); }
+.text-accent { color: var(--accent); }
+
+.text-xs { font-size: 8px; }
+.text-sm { font-size: 12px; }
+.text-md { font-size: 14px; }
+.text-lg { font-size: 16px; }
+.text-xl { font-size: 18px; }
+.text-xxl { font-size: 24px; }
+
+/* 标签样式 */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  font-family: var(--font-ticket);
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-sm);
+}
+
+.tag:hover {
+  background: rgba(212,168,83,0.1);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* 动画 */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.fade-enter {
+  opacity: 0;
+}
+
+.fade-enter-active {
+  transition: opacity var(--transition-md);
+}
+
+.fade-exit {
+  opacity: 1;
+}
+
+.fade-exit-active {
+  transition: opacity var(--transition-md);
+  opacity: 0;
+}
+
+/* 响应式 */
+@media (max-width: 500px) {
+  body {
+    padding: 8px;
+  }
+
+  .container {
+    padding: 0 var(--spacing-sm);
+  }
+
+  .text-xs { font-size: 7px; }
+  .text-sm { font-size: 10px; }
+  .text-md { font-size: 12px; }
+  .text-lg { font-size: 14px; }
+  .text-xl { font-size: 16px; }
+  .text-xxl { font-size: 22px; }
+}

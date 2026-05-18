@@ -1,621 +1,108 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>nice — 编程即艺术</title>
-<meta name="description" content="一个将编程生活比作电影票的个人主页，每90分钟一场新的人生编程 session，用代码书写时光的诗篇">
-<meta name="keywords" content="个人主页,编程,电影票,时间可视化,开发者,创意展示">
-<meta name="author" content="奈思">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
-<style>
-:root {
-  --bg: #0a0a0c;
-  --ticket-bg: #1a1a1f;
-  --ticket-stub: #141418;
-  --text: #e0ddd5;
-  --text-dim: #8a857c;
-  --text-bright: #f5f0e6;
-  --accent: #d4a853;
-  --accent-dim: #8b6914;
-  --red: #c0392b;
-  --divider: rgba(212,168,83,0.18);
-  --perf: rgba(255,255,255,0.06);
-  --progress-bg: rgba(255,255,255,0.06);
-  --progress-fill: #d4a853;
-  --font-ticket: 'SF Mono','Menlo','Monaco','Courier New',monospace;
-  --font-ui: -apple-system,BlinkMacSystemFont,'SF Pro Display','Helvetica Neue',sans-serif;
-}
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body {
-  min-height:100vh; min-height:100dvh;
-  display:flex; align-items:center; justify-content:center;
-  background:var(--bg);
-  background-image: radial-gradient(ellipse at 50% 20%, rgba(212,168,83,0.06) 0%, transparent 70%);
-  font-family:var(--font-ui);
-  -webkit-font-smoothing:antialiased;
-  overflow-x:hidden;
-  padding:12px;
-}
-.lang-toggle {
-  position:fixed; top:16px; right:16px; z-index:10;
-  background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.1);
-  color:var(--text-dim); border-radius:6px; padding:4px 10px;
-  font-size:12px; cursor:pointer; font-family:var(--font-ui);
-  transition:all .2s;
-}
-.lang-toggle:hover { color:var(--text); border-color:rgba(255,255,255,0.2); }
-.ticket-wrapper { perspective:800px; width:100%; max-width:520px; }
-.ticket {
-  position:relative; background:var(--ticket-bg); border-radius:2px;
-  display:flex; min-height:340px;
-  box-shadow: 0 24px 80px rgba(0,0,0,0.5), 0 4px 16px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.03);
-  overflow:hidden; transition: transform .35s cubic-bezier(.25,.1,.25,1), box-shadow .35s cubic-bezier(.25,.1,.25,1);
-  will-change:transform; contain:layout style;
-}
-.ticket:hover { transform:translateY(-2px); box-shadow: 0 28px 90px rgba(0,0,0,0.55), 0 6px 20px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.04); }
-.stub {
-  width:110px; min-width:110px; background:var(--ticket-stub);
-  display:flex; flex-direction:column; align-items:center;
-  padding:24px 10px 20px; border-right:1px dashed var(--perf); position:relative; gap:8px;
-}
-.stub-label {
-  font-family:var(--font-ticket); font-size:9px; color:var(--text-dim);
-  text-transform:uppercase; letter-spacing:2px; opacity:0.6;
-}
-.stub-avatar {
-  font-family:var(--font-ticket); font-size:7px; line-height:1.2;
-  color:var(--accent); white-space:pre; text-align:center;
-  user-select:none; flex:1; display:flex; align-items:center;
-  justify-content:center; min-height:80px;
-}
-.stub-initials {
-  font-family:var(--font-ticket); font-size:16px; font-weight:700;
-  color:var(--accent); letter-spacing:4px; margin-top:auto;
-}
-.stub-save {
-  font-family:var(--font-ticket); font-size:8px; color:var(--text-dim);
-  cursor:pointer; padding:4px 8px; border:1px solid rgba(255,255,255,0.08);
-  border-radius:2px; transition:all .2s; text-transform:uppercase;
-  letter-spacing:1px; background:transparent;
-}
-.stub-save:hover { color:var(--accent); border-color:var(--accent-dim); }
-.body { flex:1; display:flex; flex-direction:column; padding:24px 28px 0; min-width:0; }
-.body-header { margin-bottom:10px; }
-.cinema {
-  font-family:var(--font-ticket); font-size:10px; color:var(--text-dim);
-  letter-spacing:3px; text-transform:uppercase; margin-bottom:6px;
-}
-.film-title {
-  font-family:var(--font-ticket); font-size:26px; font-weight:700;
-  color:var(--text-bright); letter-spacing:-1px; line-height:1.1;
-  text-transform:uppercase;
-}
-.film-subtitle {
-  font-family:var(--font-ticket); font-size:10px; color:var(--accent);
-  letter-spacing:3px; text-transform:uppercase; margin-top:2px;
-}
-.meta { display:flex; gap:20px; margin-bottom:6px; font-family:var(--font-ticket); }
-.meta-item { display:flex; flex-direction:column; gap:1px; }
-.meta-label { font-size:7px; color:var(--text-dim); text-transform:uppercase; letter-spacing:1px; }
-.meta-value { font-size:10px; color:var(--text); letter-spacing:0.5px; }
-.ticket-footer-row { display:flex; justify-content:space-between; align-items:center; }
-.seat { font-family:var(--font-ticket); font-size:9px; color:var(--text-dim); letter-spacing:1px; }
-.admit { font-family:var(--font-ticket); font-size:10px; color:var(--accent); text-transform:uppercase; letter-spacing:2px; font-weight:700; }
-.tear-line {
-  display:flex; align-items:center; gap:6px; margin:10px 0 8px;
-  color:var(--text-dim); font-family:var(--font-ticket); font-size:8px;
-  letter-spacing:1px; opacity:.5;
-}
-.tear-line::before,.tear-line::after { content:''; flex:1; height:0; border-top:1px dashed rgba(255,255,255,0.08); }
-.slogan {
-  font-family:var(--font-ui); font-size:12px; color:var(--text-dim);
-  font-style:italic; text-align:center; line-height:1.5;
-  margin-bottom:6px; opacity:.7;
-}
-.countdown-row {
-  display:flex; align-items:center; gap:10px;
-  margin-bottom:6px; padding:8px 12px;
-  background:rgba(255,255,255,0.02); border-radius:4px;
-}
-.countdown-label {
-  font-family:var(--font-ticket); font-size:8px; color:var(--text-dim);
-  text-transform:uppercase; letter-spacing:1px; white-space:nowrap;
-}
-.countdown-value {
-  font-family:var(--font-ticket); font-size:22px; font-weight:700;
-  color:var(--text-bright); letter-spacing:1px; transition:color .3s;
-}
-.countdown-value.urgent { color:var(--red); animation:pulse .6s ease-in-out infinite; }
-@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
-.progress-group { display:flex; flex-direction:column; gap:4px; margin-bottom:4px; }
-.progress-row { display:flex; align-items:center; gap:8px; }
-.progress-label {
-  font-family:var(--font-ticket); font-size:8px; color:var(--text-dim);
-  width:55px; text-align:right; text-transform:uppercase; letter-spacing:1px;
-  white-space:nowrap;
-}
-.progress-bar { flex:1; height:3px; background:var(--progress-bg); border-radius:2px; overflow:hidden; }
-.progress-fill { height:100%; background:var(--progress-fill); border-radius:2px; transition:width .5s ease; }
-.progress-pct {
-  font-family:var(--font-ticket); font-size:8px; color:var(--text-dim);
-  width:36px; text-align:right;
-}
-.social-row {
-  display:flex; justify-content:center; gap:18px;
-  padding:10px 0 14px; border-top:1px solid rgba(255,255,255,0.04);
-}
-.social-row a {
-  display:inline-flex; align-items:center; gap:4px;
-  color:var(--text-dim); text-decoration:none;
-  font-family:var(--font-ticket); font-size:9px; letter-spacing:1px;
-  text-transform:uppercase; transition:color .2s;
-}
-.social-row a:hover { color:var(--accent); }
-.social-row svg { width:13px; height:13px; }
-@keyframes tearOut {
-  0% { transform:translateX(0); opacity:1; }
-  50% { transform:translateX(-20px); opacity:.5; }
-  100% { transform:translateX(-120px); opacity:0; }
-}
-@keyframes tearIn {
-  0% { transform:translateX(30px); opacity:0; }
-  100% { transform:translateX(0); opacity:1; }
-}
-.tearing .ticket { animation:tearOut .5s ease-in forwards; }
-.ticket.fresh { animation:tearIn .5s ease-out; }
-.toast {
-  position:fixed; bottom:24px; left:50%; transform:translateX(-50%);
-  background:var(--ticket-bg); color:var(--accent);
-  padding:8px 20px; border-radius:4px; font-family:var(--font-ticket);
-  font-size:11px; letter-spacing:1px; z-index:20;
-  border:1px solid rgba(212,168,83,0.2);
-  opacity:0; transition:opacity .3s; pointer-events:none;
-}
-.toast.show { opacity:1; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>nice — 编程即艺术</title>
+  <meta name="description" content="一个将编程生活比作电影票的个人主页">
+  <meta name="keywords" content="个人主页,编程,电影票,时间可视化">
+  <meta name="author" content="奈思">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
 
-@media (max-width:500px) {
-  .ticket { flex-direction:column; }
-  .stub {
-    width:100%; min-width:0; flex-direction:row; padding:12px 16px;
-    border-right:none; border-bottom:1px dashed var(--perf); gap:12px;
-  }
-  .stub-avatar { min-height:0; font-size:6px; }
-  .stub-initials { margin-top:0; }
-  .stub-label { display:none; }
-  .body { padding:16px 18px 0; }
-  .film-title { font-size:22px; }
-  .meta { gap:12px; }
-  .meta-value { font-size:9px; }
-  .countdown-value { font-size:18px; }
-  .progress-label { width:42px; }
-  .social-row { gap:12px; }
-}
-</style>
+  <!-- 模块化CSS -->
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/ticket.css">
 </head>
 <body>
 
-<button class="lang-toggle" id="langToggle" title="Switch language">EN</button>
+  <!-- 导航按钮组 -->
+  <button class="lang-toggle" id="langToggle" title="Switch language">EN</button>
+  <button class="btn btn-primary" id="thoughtsBtn" title="查看思考">
+    思考
+  </button>
 
-<div class="ticket-wrapper">
-  <div class="ticket" id="ticket">
-    <div class="stub">
-      <div class="stub-label" id="stubLabel"></div>
-      <div class="stub-avatar" id="avatar"></div>
-      <div class="stub-initials">奈思</div>
-      <button class="stub-save" id="saveBtn"></button>
-    </div>
-    <div class="body">
-      <div class="body-header">
-        <div class="cinema" id="cinema"></div>
-        <div class="film-title" id="filmTitle"></div>
-        <div class="film-subtitle" id="filmSubtitle"></div>
+  <!-- 票据容器 -->
+  <div class="container">
+    <div class="ticket" id="ticket">
+      <div class="stub">
+        <div class="stub-label" id="stubLabel"></div>
+        <div class="stub-avatar" id="avatar"></div>
+        <div class="stub-initials">奈思</div>
+        <button class="stub-save" id="saveBtn"></button>
       </div>
-      <div class="meta">
-        <div class="meta-item">
-          <span class="meta-label" id="labelDate"></span>
-          <span class="meta-value" id="metaDate"></span>
+      <div class="body">
+        <div class="body-header">
+          <div class="cinema" id="cinema"></div>
+          <div class="film-title" id="filmTitle"></div>
+          <div class="film-subtitle" id="filmSubtitle"></div>
         </div>
-        <div class="meta-item">
-          <span class="meta-label" id="labelShowtime"></span>
-          <span class="meta-value" id="metaShowtime"></span>
+        <div class="meta">
+          <div class="meta-item">
+            <span class="meta-label" id="labelDate"></span>
+            <span class="meta-value" id="metaDate"></span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label" id="labelShowtime"></span>
+            <span class="meta-value" id="metaShowtime"></span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label" id="labelPrice"></span>
+            <span class="meta-value" id="metaPrice"></span>
+          </div>
         </div>
-        <div class="meta-item">
-          <span class="meta-label" id="labelPrice"></span>
-          <span class="meta-value" id="metaPrice"></span>
+        <div class="ticket-footer-row">
+          <span class="seat" id="seat"></span>
+          <span class="admit" id="admit"></span>
         </div>
-      </div>
-      <div class="ticket-footer-row">
-        <span class="seat" id="seat"></span>
-        <span class="admit" id="admit"></span>
-      </div>
-      <div class="tear-line">∞ ∞ ∞ ∞ ∞ ∞ ∞ ∞ ∞</div>
-      <div class="slogan" id="slogan"></div>
-      <div class="countdown-row">
-        <span class="countdown-label" id="countdownLabel"></span>
-        <span class="countdown-value" id="countdown">89:59</span>
-      </div>
-      <div class="progress-group">
-        <div class="progress-row">
-          <span class="progress-label" id="labelToday"></span>
-          <div class="progress-bar"><div class="progress-fill" id="todayFill"></div></div>
-          <span class="progress-pct" id="todayPct"></span>
+        <div class="tear-line">∞ ∞ ∞ ∞ ∞ ∞ ∞ ∞ ∞</div>
+        <div class="slogan" id="slogan"></div>
+        <div class="countdown-row">
+          <span class="countdown-label" id="countdownLabel"></span>
+          <span class="countdown-value" id="countdown">89:59</span>
         </div>
-        <div class="progress-row">
-          <span class="progress-label" id="labelYear"></span>
-          <div class="progress-bar"><div class="progress-fill" id="yearFill"></div></div>
-          <span class="progress-pct" id="yearPct"></span>
+        <div class="progress-group">
+          <div class="progress-row">
+            <span class="progress-label" id="labelToday"></span>
+            <div class="progress-bar">
+              <div class="progress-fill" id="todayFill"></div>
+            </div>
+            <span class="progress-pct" id="todayPct"></span>
+          </div>
         </div>
-      </div>
-      <div class="social-row">
-        <a href="https://x.com/Myrfather" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-          X
-        </a>
-        <a href="https://github.com/dadnotfound" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
-          GitHub
-        </a>
-        <a href="https://codecave.feishu.cn/drive/folder/CkvWf3Q8Il75RGdhdBUc70AtncQ?from=from_copylink" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-          <span id="socialFeishu"></span>
-        </a>
+        <div class="social-row">
+          <a href="https://x.com/Myrfather" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            X
+          </a>
+          <a href="https://github.com/dadnotfound" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+            GitHub
+          </a>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<div class="toast" id="toast"></div>
+  <!-- 提示消息 -->
+  <div class="toast" id="toast"></div>
 
-<script>
-(function(){
-'use strict';
+  <!-- 模块化JavaScript -->
+  <script src="js/utils.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/ticket.js"></script>
+  <script src="js/navigator.js"></script>
 
-/* ═══════════════════════════
-   i18n — complete dictionary
-   ═══════════════════════════ */
-var lang = localStorage.getItem('lang') || 'zh';
+  <!-- 应用初始化 -->
+  <script>
+    // 页面初始化
+    document.addEventListener('DOMContentLoaded', function() {
+      // 初始化票据功能
+      ticket.init();
 
-var DICT = {
-  zh: {
-    cinema: '本地主机',
-    stub: '存根',
-    save: '保存票根',
-    date: '日期',
-    showtime: '场次',
-    price: '票价',
-    priceVal: '开源',
-    seat: '127排 · 0.0.1座',
-    admit: '凭票入场',
-    countdown: '距离开机剩余',
-    today: '今日场次',
-    year: '年度天数',
-    slogan: '人生如电影。走到摄影机后面去。',
-    saved: '票根已保存 ✓',
-    feishu: '飞书',
-    sessions: [
-      {name:'深夜编译', sub:'MIDNIGHT COMPILE', desc:'夜深人静时，与编译器对话，让代码在寂静中生长'},
-      {name:'调试梦境', sub:'DREAM DEBUG', desc:'潜入代码的梦境世界，捕捉那些只在黑暗中显现的bug'},
-      {name:'静默部署', sub:'SILENT DEPLOY', desc:'在无人注视的角落，见证系统优雅蜕变'},
-      {name:'黎明补丁', sub:'DAWN PATCH', desc:'破晓时分，用补丁缝合昨夜的裂痕'},
-      {name:'清晨迭代', sub:'MORNING ITER', desc:'朝阳初升，为新的一天写下更好的代码'},
-      {name:'架构早餐', sub:'BREAKFAST ARCH', desc:'用架构师的思维，为想象力构筑坚实骨架'},
-      {name:'全栈日场', sub:'FULL STACK', desc:'日正当午，挥洒全栈才能，构建完整世界'},
-      {name:'重构午时', sub:'NOON REFACTOR', desc:'午间时分，用重构让代码更优雅'},
-      {name:'午间休场', sub:'LUNCH BREAK', desc:'暂停编译器，给思维片刻喘息'},
-      {name:'午后构建', sub:'AFTERNOON BUILD', desc:'午后阳光正好，将想法砌成现实'},
-      {name:'日落提交', sub:'SUNSET COMMIT', desc:'夕阳西下，为今日代码画上句号'},
-      {name:'黄昏审查', sub:'EVENING REVIEW', desc:'黄昏时分，用审视的眼光，为代码把关'},
-      {name:'黄金时段', sub:'GOLDEN HOUR', desc:'黄金一小时，创造最耀眼的代码诗篇'},
-      {name:'夜间轮值', sub:'NIGHT SHIFT', desc:'守夜人的职责，确保系统在黑暗中安然'},
-      {name:'深夜运维', sub:'LATE NIGHT OPS', desc:'深夜时分，运维是最后的守护者'},
-      {name:'末次编译', sub:'LAST COMPILE', desc:'当最后一行代码编译完成，准备明天的黎明'}
-    ]
-  },
-  en: {
-    cinema: 'LOCALHOST',
-    stub: 'STUB',
-    save: 'SAVE TICKET',
-    date: 'DATE',
-    showtime: 'SHOW',
-    price: 'PRICE',
-    priceVal: 'OPEN SOURCE',
-    seat: 'ROW 127 · SEAT 0.0.1',
-    admit: 'ADMIT ONE',
-    countdown: 'Until roll',
-    today: 'REEL',
-    year: 'DAYS',
-    slogan: 'Life unfolds like a film. Step behind the camera.',
-    saved: 'Ticket saved  ✓',
-    feishu: 'Feishu',
-    sessions: [
-      {name:'MIDNIGHT COMPILE', sub:'深夜编译', desc:'When the world sleeps, compilers whisper, creating life from logic'},
-      {name:'DREAM DEBUG', sub:'调试梦境', desc:'Entering the dream realm of code, catching bugs only visible in darkness'},
-      {name:'SILENT DEPLOY', sub:'静默部署', desc:'In the shadows, watch systems transform with graceful precision'},
-      {name:'DAWN PATCH', sub:'黎明补丁', desc:'At dawn, weave patches to mend the night\'s fractures'},
-      {name:'MORNING ITER', sub:'清晨迭代', desc:'Morning sun rises, writing better code for a new day'},
-      {name:'BREAKFAST ARCH', sub:'架构早餐', desc:'Architectural thinking, building strong bones for imagination'},
-      {name:'FULL STACK', sub:'全栈日场', desc:'High noon, wielding full-stack powers to build complete worlds'},
-      {name:'NOON REFACTOR', sub:'重构午时', desc:'Midday, refactoring code with elegant simplicity'},
-      {name:'LUNCH BREAK', sub:'午间休场', desc:'Pause the compiler, let the mind breathe'},
-      {name:'AFTERNOON BUILD', sub:'午后构建', desc:'Afternoon sun glows, turning ideas into reality'},
-      {name:'SUNSET COMMIT', sub:'日落提交', desc:'Sunset paints the sky, code for today finds its rest'},
-      {name:'EVENING REVIEW', desc:'黄昏审查', desc:'Dawn breaks, scrutinize every line with critical eye'},
-      {name:'GOLDEN HOUR', sub:'黄金时段', desc:'Golden hour, create the most brilliant code poetry'},
-      {name:'NIGHT SHIFT', sub:'夜间轮值', desc:'Night shift, the guardian ensuring peace in digital darkness'},
-      {name:'LATE NIGHT OPS', sub:'深夜运维', desc:'Late night, ops is the final sentinel'},
-      {name:'LAST COMPILE', sub:'末次编译', desc:'When the final line compiles, prepare for tomorrow\'s dawn'}
-    ]
-  }
-};
+      // 初始化导航系统（自动处理按钮事件）
+      const navigator = window.navigatorInstance;
+    });
+  </script>
 
-function t(key) { return DICT[lang][key] || key; }
-
-function applyI18n() {
-  // Static text
-  document.getElementById('cinema').textContent = t('cinema');
-  document.getElementById('stubLabel').textContent = t('stub');
-  document.getElementById('saveBtn').textContent = t('save');
-  document.getElementById('labelDate').textContent = t('date');
-  document.getElementById('labelShowtime').textContent = t('showtime');
-  document.getElementById('labelPrice').textContent = t('price');
-  document.getElementById('metaPrice').textContent = t('priceVal');
-  document.getElementById('seat').textContent = t('seat');
-  document.getElementById('admit').textContent = t('admit');
-  document.getElementById('countdownLabel').textContent = t('countdown');
-  document.getElementById('labelToday').textContent = t('today');
-  document.getElementById('labelYear').textContent = t('year');
-  document.getElementById('slogan').textContent = t('slogan');
-  document.getElementById('socialFeishu').textContent = t('feishu');
-  document.getElementById('langToggle').textContent = lang === 'zh' ? 'EN' : '中';
-  document.documentElement.lang = lang;
-  document.title = lang === 'zh' ? 'nice — 电影票' : 'nice — Film Ticket';
-
-  // Session-dependent text
-  updateSessionText();
-}
-
-document.getElementById('langToggle').addEventListener('click', function() {
-  lang = lang === 'zh' ? 'en' : 'zh';
-  localStorage.setItem('lang', lang);
-  applyI18n();
-});
-
-/* ═══════════════════════════
-   Session Engine
-   ═══════════════════════════ */
-var ASCII_TYPES = [
-  'moon','wave','circuit','constellation','geo','blueprint','diamond',
-  'spiral','face','structure','waves','pcb','starfield','fractal','terminal','symbol'
-];
-
-function getSession(now) {
-  if (!(now instanceof Date)) now = new Date(now);
-  var midnight = new Date(now);
-  midnight.setHours(0,0,0,0);
-  var minsSinceMidnight = (now - midnight) / 60000;
-  var idx = Math.min(Math.floor(minsSinceMidnight / 90), 15);
-  var start = new Date(midnight.getTime() + idx * 90 * 60000);
-  var end   = new Date(start.getTime() + 90 * 60000);
-  return {
-    index: idx,
-    ascii: ASCII_TYPES[idx],
-    start: start,
-    end: end,
-    remaining: Math.max(0, end - now)
-  };
-}
-
-function getSessionName(idx) {
-  return DICT[lang].sessions[idx];
-}
-
-function updateSessionText() {
-  var s = getSessionName(currentSession ? currentSession.index : 0);
-  document.getElementById('filmTitle').textContent = s.name;
-  document.getElementById('filmSubtitle').textContent = s.sub;
-}
-
-/* ═══════════════════════════
-   ASCII Avatar
-   ═══════════════════════════ */
-var ASCII = {};
-ASCII._seed = Math.floor(Math.random()*2147483647);
-ASCII._rng = function() {
-  ASCII._seed = (ASCII._seed * 16807 + 0) % 2147483647;
-  return (ASCII._seed - 1) / 2147483646;
-};
-ASCII.pick = function(arr) { return arr[Math.floor(ASCII._rng() * arr.length)]; };
-ASCII.face = function() {
-  var e=ASCII.pick(['● ●','o o','• •','O O','@ @']);
-  var m=ASCII.pick(['____','────','﹏﹏﹏','~~~~']);
-  return '  .---.\n | '+e+' |\n |  '+m+'  |\n  \'---\'';
-};
-ASCII.diamond = function() {
-  var c='◆',f='·',n=4,r=[];
-  for(var i=0;i<n;i++){ var s=' '.repeat(n-i-1); r.push(i===0?s+c:s+c+f.repeat(i*2-1)+c); }
-  for(var i=n-2;i>=0;i--){ var s=' '.repeat(n-i-1); r.push(i===0?s+c:s+c+f.repeat(i*2-1)+c); }
-  return r.join('\n');
-};
-ASCII.wave = function() {
-  var r=[],w=13;
-  for(var y=0;y<7;y++){ var l=''; for(var x=0;x<w;x++){ var v=Math.sin(x/3+y/1.5)*Math.cos(y/2+x/4); l+=v>0.3?'~':v<-0.3?'≈':Math.abs(v)<.15?'·':' '; } r.push(l); }
-  return r.join('\n');
-};
-ASCII.constellation = function() {
-  var stars=['✦','✧','·','•','⋆'],w=14,h=9;
-  var g=[]; for(var y=0;y<h;y++){ g[y]=[]; for(var x=0;x<w;x++) g[y][x]=' '; }
-  for(var i=0;i<8;i++) g[Math.floor(ASCII._rng()*h)][Math.floor(ASCII._rng()*w)]=ASCII.pick(stars);
-  var r=[]; for(var y=0;y<h;y++) r.push(g[y].join('')); return r.join('\n');
-};
-ASCII.circuit = function() {
-  var w=13,h=8,g=[];
-  for(var y=0;y<h;y++){ g[y]=[]; for(var x=0;x<w;x++) g[y][x]=' '; }
-  for(var y=1;y<h;y+=2) for(var x=0;x<w;x++) if(ASCII._rng()>.3) g[y][x]='─';
-  for(var x=1;x<w;x+=3) for(var y=0;y<h;y++){ if(g[y][x]==='─') g[y][x]='┼'; else if(ASCII._rng()>.4) g[y][x]='│'; }
-  for(var i=0;i<6;i++) g[Math.floor(ASCII._rng()*h)][Math.floor(ASCII._rng()*w)]=ASCII.pick(['●','○','◉','◆']);
-  var r=[]; for(var y=0;y<h;y++) r.push(g[y].join('')); return r.join('\n');
-};
-ASCII.geo = ASCII.diamond;
-ASCII.structure = function() {
-  var t=['▀','▄','█','▌','▐'],r=[];
-  for(var y=0;y<7;y++){ var l=''; for(var x=0;x<11;x++) l+=ASCII.pick(t); r.push(l); }
-  return r.join('\n');
-};
-ASCII.fractal = function() {
-  var r=[],w=15;
-  for(var y=0;y<9;y++){ var l=''; for(var x=0;x<w;x++){ var v=(x^y)/3%1; l+=v<.25?'▓':v<.5?'▒':v<.75?'░':' '; } r.push(l); }
-  return r.join('\n');
-};
-ASCII.blueprint = function() {
-  var r=[],w=13;
-  for(var y=0;y<7;y++){ var l=''; for(var x=0;x<w;x++){ l+=(y%2===0||x%3===0)?'┼':' '; } r.push(l); }
-  return r.join('\n');
-};
-var ASCII_MAP = {
-  moon: function(){ return '    ☽\n   ☽  \n  ✦   \n   ·  '; },
-  wave: ASCII.wave, circuit: ASCII.circuit, constellation: ASCII.constellation,
-  geo: ASCII.geo, blueprint: ASCII.blueprint, diamond: ASCII.diamond,
-  spiral: function(){
-    var n=5,r=[]; for(var i=0;i<n;i++){ var s=' '.repeat(n-i-1); r.push(s+'@'+'·'.repeat(i*2-1)+(i>0?'@':'')); }
-    for(var i=n-2;i>=0;i--){ var s=' '.repeat(n-i-1); r.push(s+'@'+'·'.repeat(i*2-1)+(i>0?'@':'')); }
-    return r.join('\n');
-  },
-  face: ASCII.face, structure: ASCII.structure,
-  pcb: function(){ return ASCII.circuit(); }, starfield: ASCII.constellation,
-  terminal: function(){ return ' > _\n > ./build\n > deploy\n > ...\n > done  ✓'; },
-  fractal: ASCII.fractal,
-  symbol: function(){ return '  ◆ ◇ ◆\n ◇ ◆ ◇\n  ◆ ◇ ◆'; },
-  waves: function(){
-    var r=[],w=13; for(var y=0;y<7;y++){ var l=''; for(var x=0;x<w;x++){ var v=Math.sin(x/2+y)*Math.cos(y+x/3); l+=v>0.4?'◠':v<-0.4?'◡':'~'; } r.push(l); }
-    return r.join('\n');
-  }
-};
-
-/* ═══════════════════════════
-   Timer Controller
-   ═══════════════════════════ */
-var lastSessionIdx = -1;
-var currentSession = null;
-
-function updateAll() {
-  var now = new Date();
-  currentSession = getSession(now);
-
-  // Session text
-  var s = getSessionName(currentSession.index);
-  document.getElementById('filmTitle').textContent = s.name;
-  document.getElementById('filmSubtitle').textContent = s.sub;
-
-  // Date
-  var y=now.getFullYear(), m=String(now.getMonth()+1).padStart(2,'0'), d=String(now.getDate()).padStart(2,'0');
-  document.getElementById('metaDate').textContent = y+'-'+m+'-'+d;
-
-  // Showtime
-  var sh=String(currentSession.start.getHours()).padStart(2,'0');
-  var sm=String(currentSession.start.getMinutes()).padStart(2,'0');
-  var eh=String(currentSession.end.getHours()).padStart(2,'0');
-  var em=String(currentSession.end.getMinutes()).padStart(2,'0');
-  document.getElementById('metaShowtime').textContent = sh+':'+sm+' — '+eh+':'+em;
-
-  // Countdown
-  var rem=currentSession.remaining, mins=Math.floor(rem/60000), secs=Math.floor((rem%60000)/1000);
-  var cdEl=document.getElementById('countdown');
-  cdEl.textContent = String(mins).padStart(2,'0')+':'+String(secs).padStart(2,'0');
-  cdEl.classList.toggle('urgent', rem<60000);
-
-  // Today: session/16 + progress bar
-  var idx = currentSession.index;
-  document.getElementById('todayFill').style.width = ((idx+1)/16*100).toFixed(1)+'%';
-  document.getElementById('todayPct').textContent = (idx+1)+'/16';
-
-  // Year: day-of-year/365 leap-year-aware
-  var yearStart = new Date(y, 0, 1);
-  var yearEnd = new Date(y+1, 0, 1);
-  var totalDays = Math.round((yearEnd - yearStart) / 86400000); // 365 or 366
-  var dayOfYear = Math.floor((now - yearStart) / 86400000) + 1;
-  document.getElementById('yearFill').style.width = (dayOfYear/totalDays*100).toFixed(1)+'%';
-  document.getElementById('yearPct').textContent = dayOfYear+'/'+totalDays;
-
-  // Session change
-  if (lastSessionIdx !== -1 && lastSessionIdx !== idx) triggerTear();
-  lastSessionIdx = idx;
-}
-
-/* ═══════════════════════════
-   Tear Animation
-   ═══════════════════════════ */
-function triggerTear() {
-  var ticket = document.getElementById('ticket');
-  ASCII._seed = Math.floor(Math.random()*2147483647);
-  ticket.classList.add('tearing');
-  setTimeout(function() {
-    updateAvatar();
-    updateAll();
-    ticket.classList.remove('tearing');
-    ticket.classList.add('fresh');
-    setTimeout(function(){ ticket.classList.remove('fresh'); }, 500);
-  }, 450);
-}
-
-function updateAvatar() {
-  if (!currentSession) return;
-  var gen = ASCII_MAP[currentSession.ascii] || ASCII.face;
-  document.getElementById('avatar').textContent = gen();
-}
-
-/* ═══════════════════════════
-   Ticket Export
-   ═══════════════════════════ */
-document.getElementById('saveBtn').addEventListener('click', function() {
-  var ticket = document.getElementById('ticket');
-  var toast = document.getElementById('toast');
-  var rect = ticket.getBoundingClientRect();
-  var scale = 2;
-  var canvas = document.createElement('canvas');
-  canvas.width = rect.width * scale;
-  canvas.height = rect.height * scale;
-  var ctx = canvas.getContext('2d');
-  ctx.scale(scale, scale);
-
-  var styles = Array.from(document.querySelectorAll('style')).map(function(s){return s.textContent;}).join('\n');
-  var html = ticket.outerHTML;
-  var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="'+rect.width+'" height="'+rect.height+'">'+
-    '<foreignObject width="100%" height="100%">'+
-    '<div xmlns="http://www.w3.org/1999/xhtml">'+
-    '<style>'+styles+'</style>'+html+
-    '</div></foreignObject></svg>';
-
-  var img = new Image();
-  var blob = new Blob([svg], {type:'image/svg+xml;charset=utf-8'});
-  var url = URL.createObjectURL(blob);
-
-  img.onload = function() {
-    ctx.drawImage(img, 0, 0);
-    URL.revokeObjectURL(url);
-    canvas.toBlob(function(blob) {
-      var a = document.createElement('a');
-      a.href = URL.createObjectURL(blob);
-      var s = getSessionName(currentSession ? currentSession.index : 0);
-      a.download = 'ticket-'+s.name.replace(/\s/g,'-')+'.png';
-      a.click();
-      toast.textContent = t('saved');
-      toast.classList.add('show');
-      setTimeout(function(){ toast.classList.remove('show'); }, 2000);
-    }, 'image/png');
-  };
-  img.src = url;
-});
-
-/* ═══════════════════════════
-   Init
-   ═══════════════════════════ */
-applyI18n();
-updateAll();
-updateAvatar();
-setInterval(updateAll, 1000);
-
-})();
-</script>
 </body>
 </html>

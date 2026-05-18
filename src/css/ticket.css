@@ -1,0 +1,462 @@
+/* ═══════════════════════════
+   Ticket Styles — 电影票专用样式
+   ═══════════════════════════ */
+
+/* 语言切换按钮 */
+.lang-toggle {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 10;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: var(--text-dim);
+  border-radius: var(--radius-sm);
+  padding: var(--spacing-xs) var(--spacing-md);
+  font-size: 12px;
+  cursor: pointer;
+  font-family: var(--font-ui);
+  transition: all var(--transition-sm);
+}
+
+.lang-toggle:hover {
+  color: var(--text);
+  border-color: rgba(255,255,255,0.2);
+}
+
+/* 票据容器 */
+.ticket-wrapper {
+  perspective: 800px;
+  width: 100%;
+  max-width: 520px;
+}
+
+/* 票据主体 */
+.ticket {
+  position: relative;
+  background: var(--ticket-bg);
+  border-radius: var(--radius-sm);
+  display: flex;
+  min-height: 340px;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.5),
+              0 4px 16px rgba(0,0,0,0.3),
+              inset 0 1px 0 rgba(255,255,255,0.03);
+  overflow: hidden;
+  transition: transform var(--transition-md),
+              box-shadow var(--transition-md);
+  will-change: transform;
+  contain: layout style;
+}
+
+/* 票据悬停效果 */
+.ticket:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 28px 90px rgba(0,0,0,0.55),
+              0 6px 20px rgba(0,0,0,0.35),
+              inset 0 1px 0 rgba(255,255,255,0.04);
+}
+
+/* 票存根 */
+.stub {
+  width: 110px;
+  min-width: 110px;
+  background: var(--ticket-stub);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px 10px 20px;
+  border-right: 1px dashed var(--perf);
+  position: relative;
+  gap: var(--spacing-xs);
+}
+
+.stub-label {
+  font-family: var(--font-ticket);
+  font-size: 9px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  opacity: 0.6;
+}
+
+.stub-avatar {
+  font-family: var(--font-ticket);
+  font-size: 7px;
+  line-height: 1.2;
+  color: var(--accent);
+  white-space: pre;
+  text-align: center;
+  user-select: none;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 80px;
+}
+
+.stub-initials {
+  font-family: var(--font-ticket);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 4px;
+  margin-top: auto;
+}
+
+.stub-save {
+  font-family: var(--font-ticket);
+  font-size: 8px;
+  color: var(--text-dim);
+  cursor: pointer;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-sm);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  background: transparent;
+}
+
+.stub-save:hover {
+  color: var(--accent);
+  border-color: var(--accent-dim);
+}
+
+/* 票据主体内容 */
+.body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 24px 28px 0;
+  min-width: 0;
+}
+
+.body-header {
+  margin-bottom: var(--spacing-xs);
+}
+
+.cinema {
+  font-family: var(--font-ticket);
+  font-size: 10px;
+  color: var(--text-dim);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.film-title {
+  font-family: var(--font-ticket);
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--text-bright);
+  letter-spacing: -1px;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.film-subtitle {
+  font-family: var(--font-ticket);
+  font-size: 10px;
+  color: var(--accent);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
+/* 元数据信息 */
+.meta {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 6px;
+  font-family: var(--font-ticket);
+}
+
+.meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.meta-label {
+  font-size: 7px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.meta-value {
+  font-size: 10px;
+  color: var(--text);
+  letter-spacing: 0.5px;
+}
+
+/* 票据底部 */
+.ticket-footer-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.seat {
+  font-family: var(--font-ticket);
+  font-size: 9px;
+  color: var(--text-dim);
+  letter-spacing: 1px;
+}
+
+.admit {
+  font-family: var(--font-ticket);
+  font-size: 10px;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 700;
+}
+
+/* 撕裂线 */
+.tear-line {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 10px 0 8px;
+  color: var(--text-dim);
+  font-family: var(--font-ticket);
+  font-size: 8px;
+  letter-spacing: 1px;
+  opacity: 0.5;
+}
+
+.tear-line::before,
+.tear-line::after {
+  content: '';
+  flex: 1;
+  height: 0;
+  border-top: 1px dashed rgba(255,255,255,0.08);
+}
+
+/* 标语 */
+.slogan {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  color: var(--text-dim);
+  font-style: italic;
+  text-align: center;
+  line-height: 1.5;
+  margin-bottom: 6px;
+  opacity: 0.7;
+}
+
+/* 倒计时 */
+.countdown-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+  padding: 8px 12px;
+  background: rgba(255,255,255,0.02);
+  border-radius: var(--radius-sm);
+}
+
+.countdown-label {
+  font-family: var(--font-ticket);
+  font-size: 8px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+
+.countdown-value {
+  font-family: var(--font-ticket);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-bright);
+  letter-spacing: 1px;
+  transition: color var(--transition-sm);
+}
+
+.countdown-value.urgent {
+  color: var(--red);
+  animation: pulse 0.6s ease-in-out infinite;
+}
+
+/* 进度条 */
+.progress-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 4px;
+}
+
+.progress-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.progress-label {
+  font-family: var(--font-ticket);
+  font-size: 8px;
+  color: var(--text-dim);
+  width: 55px;
+  text-align: right;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+
+.progress-bar {
+  flex: 1;
+  height: 3px;
+  background: var(--progress-bg);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--progress-fill);
+  border-radius: var(--radius-sm);
+  transition: width 0.5s ease;
+}
+
+.progress-pct {
+  font-family: var(--font-ticket);
+  font-size: 8px;
+  color: var(--text-dim);
+  width: 36px;
+  text-align: right;
+}
+
+/* 社交链接 */
+.social-row {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  padding: 10px 0 14px;
+  border-top: 1px solid rgba(255,255,255,0.04);
+}
+
+.social-row a {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--text-dim);
+  text-decoration: none;
+  font-family: var(--font-ticket);
+  font-size: 9px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: color var(--transition-sm);
+}
+
+.social-row a:hover {
+  color: var(--accent);
+}
+
+.social-row svg {
+  width: 13px;
+  height: 13px;
+}
+
+/* 动画效果 */
+@keyframes tearOut {
+  0% { transform: translateX(0); opacity: 1; }
+  50% { transform: translateX(-20px); opacity: 0.5; }
+  100% { transform: translateX(-120px); opacity: 0; }
+}
+
+@keyframes tearIn {
+  0% { transform: translateX(30px); opacity: 0; }
+  100% { transform: translateX(0); opacity: 1; }
+}
+
+.tearing .ticket {
+  animation: tearOut 0.5s ease-in forwards;
+}
+
+.ticket.fresh {
+  animation: tearIn 0.5s ease-out;
+}
+
+/* 提示消息 */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--ticket-bg);
+  color: var(--accent);
+  padding: 8px 20px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-ticket);
+  font-size: 11px;
+  letter-spacing: 1px;
+  z-index: 20;
+  border: 1px solid rgba(212,168,83,0.2);
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+
+.toast.show {
+  opacity: 1;
+}
+
+/* 响应式设计 */
+@media (max-width: 500px) {
+  .ticket {
+    flex-direction: column;
+  }
+
+  .stub {
+    width: 100%;
+    min-width: 0;
+    flex-direction: row;
+    padding: 12px 16px;
+    border-right: none;
+    border-bottom: 1px dashed var(--perf);
+    gap: 12px;
+  }
+
+  .stub-avatar {
+    min-height: 0;
+    font-size: 6px;
+  }
+
+  .stub-initials {
+    margin-top: 0;
+  }
+
+  .stub-label {
+    display: none;
+  }
+
+  .body {
+    padding: 16px 18px 0;
+  }
+
+  .film-title {
+    font-size: 22px;
+  }
+
+  .meta {
+    gap: 12px;
+  }
+
+  .meta-value {
+    font-size: 9px;
+  }
+
+  .countdown-value {
+    font-size: 18px;
+  }
+
+  .progress-label {
+    width: 42px;
+  }
+
+  .social-row {
+    gap: 12px;
+  }
+}
