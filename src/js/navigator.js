@@ -23,7 +23,8 @@ class Navigator {
 
   // 检测当前页面
   detectCurrentPage() {
-    if (window.location.pathname.endsWith('/thoughts.html')) {
+    // 支持hash路由：http://zhaohao.site/#thoughts
+    if (window.location.hash === '#thoughts') {
       this.currentPage = 'thoughts';
       this.thoughtsContainer = document.getElementById('thoughtsContainer');
     } else {
@@ -55,9 +56,9 @@ class Navigator {
 
     // 监听浏览器前进/后退
     window.addEventListener('popstate', (e) => {
-      if (e.state && e.state.page) {
-        this.currentPage = e.state.page;
-        this.updateUI();
+      const page = window.location.hash === '#thoughts' ? 'thoughts' : 'home';
+      if (this.currentPage !== page) {
+        this.navigateTo(page, { updateUrl: false });
       }
     });
 
@@ -79,7 +80,7 @@ class Navigator {
       // 触发离开动画
       await this.handlePageLeave(page, animationType, direction);
 
-      // 更新URL（可选）
+      // 更新URL（在动画前更新，确保状态正确）
       if (options.updateUrl !== false) {
         this.updateURL(page);
       }
@@ -199,11 +200,12 @@ class Navigator {
     });
   }
 
-  // 更新URL
+  // 更新URL（使用hash路由，避免服务器配置）
   updateURL(page) {
-    const url = page === 'thoughts' ? 'thoughts.html' : 'index.html';
-    if (window.location.pathname !== url) {
-      history.pushState({ page }, '', url);
+    const hash = page === 'thoughts' ? '#thoughts' : '';
+    const newURL = window.location.pathname + hash;
+    if (window.location.hash !== hash) {
+      history.pushState({ page }, '', newURL);
     }
   }
 
@@ -268,28 +270,21 @@ class NavigationButtons {
   }
 
   init() {
-    // 主页导航按钮
-    const thoughtsBtn = document.getElementById('thoughtsBtn');
-    if (thoughtsBtn) {
-      thoughtsBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        this.navigator.navigateTo('thoughts', {
+    // hash路由变化监听
+    window.addEventListener('hashchange', () => {
+      const page = window.location.hash === '#thoughts' ? 'thoughts' : 'home';
+      if (this.navigator.currentPage !== page) {
+        this.navigator.navigateTo(page, {
           animation: 'slide',
-          direction: 'forward'
+          direction: page === 'thoughts' ? 'forward' : 'backward'
         });
-      });
-    }
+      }
+    });
 
-    // 返回按钮
-    const backBtn = document.getElementById('backBtn');
-    if (backBtn) {
-      backBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        this.navigator.navigateTo('home', {
-          animation: 'slide',
-          direction: 'backward'
-        });
-      });
+    // 初始 hash 状态检测
+    const initialPage = window.location.hash === '#thoughts' ? 'thoughts' : 'home';
+    if (this.navigator.currentPage !== initialPage) {
+      this.navigator.navigateTo(initialPage, { updateUrl: false });
     }
 
     // 监听页面就绪事件
