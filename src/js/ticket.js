@@ -63,11 +63,10 @@ class TimeManager {
     const s = this.getSessionInfo(this.currentSession.index);
     const sessionName = document.getElementById('sessionName');
     const sessionSubtitle = document.getElementById('sessionSubtitle');
-    const sessionNumber = document.getElementById('sessionNumber');
 
     if (sessionName) sessionName.textContent = s.name;
     if (sessionSubtitle) {
-      sessionSubtitle.innerHTML = `<span class="session-number">${i18n.t('session').toUpperCase()} ${this.currentSession.index + 1}</span> · ${s.subtitle}`;
+      sessionSubtitle.textContent = `· ${s.subtitle}`;
     }
 
     // 更新元数据网格
@@ -167,13 +166,6 @@ function initTicket() {
   // 设置定时器
   setInterval(() => timeManager.updateAll(), 1000);
 
-  // 绑定事件
-  const langToggle = document.getElementById('langToggle');
-  if (langToggle) {
-    langToggle.addEventListener('click', () => {
-      i18n.toggleLang();
-    });
-  }
 
   // 导出时间信息
   const saveBtn = document.getElementById('saveBtn');

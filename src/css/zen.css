@@ -178,12 +178,6 @@ body {
   margin-top: 8px;
 }
 
-.session-number {
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--penta-ink);
-}
-
 /* 进度区块：时间的流动 */
 .progress {
   display: flex;
@@ -270,28 +264,6 @@ body {
   transform: translateY(-2px);
 }
 
-/* ═══════════════════════════
-   悬浮 UI：语言切换
-   ═══════════════════════════ */
-
-.lang-toggle {
-  position: fixed;
-  top: 24px;
-  right: 24px;
-  font-size: 12px;
-  padding: var(--spacing-md) var(--spacing-lg);
-  border: 1px solid var(--penta-light);
-  background: transparent;
-  color: var(--penta-dim);
-  cursor: pointer;
-  transition: all 0.3s ease;
-  border-radius: 4px;
-}
-
-.lang-toggle:hover {
-  border-color: var(--penta-ink);
-  color: var(--penta-ink);
-}
 
 /* ═══════════════════════════
    响应式：精准适配

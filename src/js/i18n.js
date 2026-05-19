@@ -2,8 +2,8 @@
    i18n — 国际化模块
    ═══════════════════════════ */
 
-// 当前语言设置
-let lang = localStorage.getItem('lang') || 'zh';
+// 当前语言设置 - 默认英文
+let lang = localStorage.getItem('lang') || 'en';
 
 // 翻译词典
 const DICT = {
@@ -105,12 +105,8 @@ function getCurrentLang() {
 
 // 应用UI更新
 function updateUI() {
-  // 更新语言切换按钮
-  const langToggle = document.getElementById('langToggle');
-  if (langToggle) {
-    langToggle.textContent = lang === 'zh' ? 'EN' : '中';
-    document.documentElement.lang = lang;
-  }
+  // 设置页面语言
+  document.documentElement.lang = lang;
 }
 
 // 批量更新文本内容
