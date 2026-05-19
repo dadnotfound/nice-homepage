@@ -1,6 +1,18 @@
 {
+  "permissions": {
+    "allow": [
+      "Bash(npx playwright *)",
+      "Bash(python3 -m http.server 8000)",
+      "Bash(npx serve *)",
+      "mcp__chrome-devtools__evaluate_script",
+      "mcp__chrome-devtools__navigate_page",
+      "Bash(git add *)",
+      "Bash(git push *)",
+      "Bash(./auto-test-and-push.sh)"
+    ]
+  },
+  "enableAllProjectMcpServers": true,
   "enabledMcpjsonServers": [
     "chrome-devtools"
-  ],
-  "enableAllProjectMcpServers": true
+  ]
 }

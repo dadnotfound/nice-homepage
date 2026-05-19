@@ -61,7 +61,7 @@ run_tests() {
     # 测试 2: 检查关键文件是否存在
     local critical_files=(
         "src/index.html"
-        "CLAUDE.md"
+        "docs/CLAUDE.md"
         "docs/CHANGELOG.md"
         "src/README.md"
     )

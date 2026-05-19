@@ -12,7 +12,7 @@
     ".obsidian/**"
   ],
   "debounce": 1000,
-  "command": "auto-test-and-push.sh",
+  "command": "scripts/auto-test-and-push.sh",
   "onSuccess": "echo '✅ 测试通过，已自动推送'",
   "onError": "echo '❌ 测试失败，请手动检查'",
   "verbose": true
