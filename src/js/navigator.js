@@ -9,6 +9,7 @@ class Navigator {
     this.transitioning = false;
     this.container = document.body;
     this.thoughtsContainer = null;
+    this.homeContainer = null;
     this.init();
   }
 
@@ -27,8 +28,30 @@ class Navigator {
     if (window.location.hash === '#thoughts') {
       this.currentPage = 'thoughts';
       this.thoughtsContainer = document.getElementById('thoughtsContainer');
+      this.homeContainer = document.querySelector('.container');
+      // 隐藏返回按钮（只在思考页显示）
+      const backBtn = document.getElementById('backBtn');
+      if (backBtn) {
+        backBtn.style.display = 'inline-flex';
+      }
+      // 隐藏思考按钮（只在主页显示）
+      const thoughtsBtn = document.getElementById('thoughtsBtn');
+      if (thoughtsBtn) {
+        thoughtsBtn.style.display = 'none';
+      }
     } else {
       this.currentPage = 'home';
+      this.homeContainer = document.querySelector('.container');
+      // 显示思考按钮（只在主页显示）
+      const thoughtsBtn = document.getElementById('thoughtsBtn');
+      if (thoughtsBtn) {
+        thoughtsBtn.style.display = 'inline-flex';
+      }
+      // 隐藏返回按钮（只在思考页显示）
+      const backBtn = document.getElementById('backBtn');
+      if (backBtn) {
+        backBtn.style.display = 'none';
+      }
     }
   }
 
@@ -106,7 +129,7 @@ class Navigator {
   // 处理页面离开动画
   async handlePageLeave(targetPage, animationType, direction) {
     return new Promise((resolve) => {
-      const homeContent = document.querySelector('.ticket-wrapper');
+      const homeContent = document.querySelector('.container');
       const thoughtsContent = document.querySelector('.thoughts-container');
 
       switch (animationType) {
@@ -159,7 +182,7 @@ class Navigator {
   // 处理页面进入动画
   async handlePageEnter(targetPage, animationType, direction) {
     return new Promise((resolve) => {
-      const homeContent = document.querySelector('.ticket-wrapper');
+      const homeContent = document.querySelector('.container');
       const thoughtsContent = document.querySelector('.thoughts-container');
 
       switch (animationType) {

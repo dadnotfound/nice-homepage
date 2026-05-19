@@ -99,6 +99,9 @@ class TimeManager {
       progressFill.style.width = `${progress}%`;
     }
 
+    // 更新电影胶片进度
+    this.updateFilmReel();
+
     // 更新会话切换
     if (this.lastSessionIdx !== -1 && this.lastSessionIdx !== this.currentSession.index) {
       this.triggerSessionChange();
@@ -116,6 +119,46 @@ class TimeManager {
         timeSection.style.opacity = '1';
       }, 300);
     }
+  }
+
+  // 更新电影胶片显示
+  updateFilmReel() {
+    const frames = document.querySelectorAll('.film-frame');
+    const filmProgress = document.getElementById('filmProgress');
+
+    if (!frames.length || !filmProgress) return;
+
+    // 计算当前进度百分比
+    const progressPercent = ((this.currentSession.index + 1) / 16) * 100;
+
+    // 更新CSS变量
+    document.documentElement.style.setProperty('--progress', `${progressPercent}%`);
+
+    // 更新每个电影帧的状态
+    frames.forEach((frame, index) => {
+      frame.classList.remove('active', 'completed');
+      if (index < this.currentSession.index) {
+        frame.classList.add('completed');
+      } else if (index === this.currentSession.index) {
+        frame.classList.add('active');
+      }
+    });
+
+    // 更新会话提示
+    this.updateSessionTip();
+  }
+
+  // 更新当前会话提示
+  updateSessionTip() {
+    const tip = document.getElementById('sessionTip');
+    if (!tip) return;
+
+    const currentSessionNum = this.currentSession.index + 1;
+    const totalTime = 90; // 90分钟
+    const remaining = Math.floor(this.currentSession.remaining / 60000); // 转换为分钟
+
+    tip.querySelector('.tip-title').textContent = `Session ${currentSessionNum} - ${this.getSessionInfo(this.currentSession.index).name}`;
+    tip.querySelector('.tip-desc').textContent = `A 90-minute journey of focus and creation - ${remaining} minutes remaining`;
   }
 
   // 获取剩余时间
@@ -163,6 +206,9 @@ function initTicket() {
   i18n.updateUI();
   updateAll();
 
+  // 初始化电影胶片
+  initFilmReel();
+
   // 设置定时器
   setInterval(() => timeManager.updateAll(), 1000);
 
@@ -180,6 +226,29 @@ function initTicket() {
 
   // 模拟旧的sessionManager变量（如果需要）
   window.sessionManager = timeManager;
+}
+
+// 初始化电影胶片
+function initFilmReel() {
+  const filmTrack = document.getElementById('filmTrack');
+  if (!filmTrack) return;
+
+  const sessionNames = [
+    'Sleep', 'Exercise', 'Plan', 'Deep Work',
+    'Creative', 'Code', 'Meet', 'Design',
+    'Read', 'Write', 'Think', 'Rest',
+    'Connect', 'Create', 'Learn', 'Reflect'
+  ];
+
+  // 创建16个电影帧
+  sessionNames.forEach((name, index) => {
+    const frame = document.createElement('div');
+    frame.className = 'film-frame';
+    frame.dataset.index = index;
+    frame.dataset.title = name;
+    frame.textContent = index + 1;
+    filmTrack.appendChild(frame);
+  });
 }
 
 // 更新所有内容

@@ -3,174 +3,119 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>功能测试 - nice</title>
+  <title>两页架构测试 - Nice思考日记</title>
+  <meta name="description" content="测试主页和思考页之间的导航切换">
+  <meta name="author" content="Nice">
+
+  <!-- 基础样式 -->
+  <link rel="stylesheet" href="css/base.css">
   <style>
     body {
-      font-family: var(--font-ui);
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .test-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       background: var(--bg);
+      background-image: radial-gradient(ellipse at 50% 20%, rgba(212,168,83,0.06) 0%, transparent 70%);
+    }
+
+    .test-content {
+      text-align: center;
       color: var(--text);
-      padding: 20px;
-      max-width: 800px;
-      margin: 0 auto;
     }
-    .test-section {
-      background: rgba(255,255,255,0.05);
-      border-radius: 8px;
-      padding: 20px;
-      margin-bottom: 20px;
-    }
+
     .test-title {
-      color: var(--accent);
+      font-size: 32px;
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+
+    .test-description {
       font-size: 18px;
-      margin-bottom: 15px;
-      font-family: var(--font-ticket);
-      text-transform: uppercase;
-      letter-spacing: 1px;
+      margin-bottom: 40px;
+      color: var(--text-dim);
+      line-height: 1.6;
     }
-    .test-item {
-      margin: 10px 0;
-      padding: 10px;
-      background: rgba(255,255,255,0.03);
-      border-radius: 4px;
+
+    .test-links {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
     }
+
     .test-link {
-      display: inline-block;
-      margin: 5px 10px 5px 0;
-      padding: 8px 16px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 24px;
       background: var(--accent);
       color: var(--bg);
       text-decoration: none;
-      border-radius: 4px;
-      transition: all 0.3s;
+      border-radius: 20px;
+      font-weight: 600;
+      transition: all var(--transition-sm);
     }
+
     .test-link:hover {
       transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(212,168,83,0.3);
+      box-shadow: 0 4px 12px rgba(212, 168, 83, 0.4);
     }
-    .status {
-      color: #4CAF50;
+
+    .test-link svg {
+      width: 20px;
+      height: 20px;
     }
-    .status.failed {
-      color: #f44336;
-    }
-    pre {
-      background: rgba(0,0,0,0.3);
-      padding: 10px;
-      border-radius: 4px;
-      overflow-x: auto;
-      font-size: 12px;
+
+    .test-note {
+      margin-top: 30px;
+      font-size: 14px;
+      color: var(--text-dim);
+      font-style: italic;
     }
   </style>
 </head>
 <body>
-  <h1>功能测试页面</h1>
-
-  <div class="test-section">
-    <h2 class="test-title">导航测试</h2>
-    <div class="test-item">
-      <strong>主页测试：</strong>
-      <a href="index.html" class="test-link">进入主页</a>
-    </div>
-    <div class="test-item">
-      <strong>思考页测试：</strong>
-      <a href="thoughts.html" class="test-link">进入思考页</a>
+  <div class="test-container">
+    <div class="test-content">
+      <h1 class="test-title">两页架构测试</h1>
+      <p class="test-description">
+        这个测试页面验证主页和思考页之间的导航切换功能。<br>
+        请点击下面的链接进入各个页面测试：
+      </p>
+      <div class="test-links">
+        <a href="index.html" class="test-link">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+          </svg>
+          进入主页
+        </a>
+        <a href="thoughts.html" class="test-link">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+          </svg>
+          进入思考页
+        </a>
+        <a href="test.html" class="test-link">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14l-4-4h2.5V9h3v4H14l-4 4z"/>
+          </svg>
+          刷新测试页
+        </a>
+      </div>
+      <p class="test-note">
+        💡 提示：在主页点击"思考"按钮，在思考页点击"返回主页"按钮，测试页面切换动画。
+      </p>
     </div>
   </div>
-
-  <div class="test-section">
-    <h2 class="test-title">功能验证</h2>
-    <div class="test-item">
-      <strong>国际化：</strong> <span id="i18n-status" class="status">测试中...</span>
-    </div>
-    <div class="test-item">
-      <strong>导航系统：</strong> <span id="nav-status" class="status">测试中...</span>
-    </div>
-    <div class="test-item">
-      <strong>工具函数：</strong> <span id="utils-status" class="status">测试中...</span>
-    </div>
-  </div>
-
-  <div class="test-section">
-    <h2 class="test-title">JavaScript模块测试</h2>
-    <pre id="test-output"></pre>
-  </div>
-
-  <script src="js/utils.js"></script>
-  <script src="js/i18n.js"></script>
-  <script src="js/ticket.js"></script>
-  <script src="js/navigator.js"></script>
-
-  <script>
-    // 测试输出
-    const testOutput = document.getElementById('test-output');
-    const testResult = (module, success) => {
-      const status = success ? '✓ 通过' : '✗ 失败';
-      testOutput.innerHTML += `${module}: ${status}\n`;
-    };
-
-    // 开始测试
-    testOutput.textContent = '开始运行功能测试...\n\n';
-
-    // 测试i18n
-    try {
-      if (window.i18n && window.i18n.t) {
-        const zhText = window.i18n.t('cinema');
-        const enText = window.i18n.toggleLang();
-        window.i18n.toggleLang(); // 切换回中文
-        testResult('i18n模块', zhText && enText && zhText !== enText);
-        document.getElementById('i18n-status').textContent = '正常 ✓';
-      } else {
-        throw new Error('i18n模块未加载');
-      }
-    } catch (e) {
-      testResult('i18n模块', false);
-      document.getElementById('i18n-status').textContent = '失败 ✗';
-      document.getElementById('i18n-status').className = 'status failed';
-    }
-
-    // 测试navigator
-    try {
-      if (window.Navigator && window.navigatorInstance) {
-        const navigator = window.navigatorInstance;
-        testResult('navigator模块', navigator && navigator.getCurrentPage);
-        document.getElementById('nav-status').textContent = '正常 ✓';
-      } else {
-        throw new Error('navigator模块未加载');
-      }
-    } catch (e) {
-      testResult('navigator模块', false);
-      document.getElementById('nav-status').textContent = '失败 ✗';
-      document.getElementById('nav-status').className = 'status failed';
-    }
-
-    // 测试utils
-    try {
-      if (window.utils && window.utils.random && window.utils.debounce) {
-        const randomNum = window.utils.random(1, 10);
-        const debounceTest = window.utils.debounce(() => {}, 100);
-        testResult('utils模块', randomNum && debounceTest);
-        document.getElementById('utils-status').textContent = '正常 ✓';
-      } else {
-        throw new Error('utils模块未加载');
-      }
-    } catch (e) {
-      testResult('utils模块', false);
-      document.getElementById('utils-status').textContent = '失败 ✗';
-      document.getElementById('utils-status').className = 'status failed';
-    }
-
-    // 测试ticket
-    try {
-      if (window.ticket && window.ticket.ASC && window.ticket.SessionManager) {
-        testResult('ticket模块', true);
-      } else {
-        throw new Error('ticket模块未加载');
-      }
-    } catch (e) {
-      testResult('ticket模块', false);
-    }
-
-    testOutput.textContent += '\n测试完成！';
-  </script>
 </body>
 </html>

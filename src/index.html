@@ -3,15 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>nice — 时间即存在</title>
-  <meta name="description" content="一个表达「时间即存在」哲学的个人主页">
-  <meta name="keywords" content="个人主页,哲学,时间,极简设计">
-  <meta name="author" content="奈思">
+  <title>Nice思考日记 — 记录时间，思考存在</title>
+  <meta name="description" content="Nice的思考日记，记录编程、生活和设计的深度思考，探索时间与存在的哲学">
+  <meta name="keywords" content="思考日记,编程,设计,哲学,时间管理,个人成长">
+  <meta name="author" content="Nice">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
 
   <!-- 模块化CSS -->
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/zen.css">
+  <link rel="stylesheet" href="css/ticket.css">
 </head>
 <body>
 
@@ -20,21 +21,38 @@
 
 
   <!-- 主容器 -->
-  <div class="container">
+  <div class="container ticket-wrapper">
     <!-- 名字：112px 大锚点 -->
-    <div class="name">奈思</div>
+    <div class="name">Nice</div>
 
     <!-- 元数据网格：理性分栏 -->
     <div class="header">
       <div class="meta-grid">
         <div class="meta-item">
-          <span class="meta-label" id="labelSession">SESSION</span>
-          <span class="meta-value" id="sessionValue">04</span>
+          <span class="meta-label">TODAY</span>
+          <span class="meta-value" id="sessionValue">04/16</span>
         </div>
         <div class="meta-item">
-          <span class="meta-label" id="labelYear">YEAR DAY</span>
+          <span class="meta-label">YEAR</span>
           <span class="meta-value" id="yearValue">138/365</span>
         </div>
+      </div>
+    </div>
+
+    <!-- 电影胶片进度条 -->
+    <div class="film-reel">
+      <div class="film-track" id="filmTrack">
+        <!-- 16个电影帧将通过JavaScript动态生成 -->
+      </div>
+      <div class="film-progress" id="filmProgress"></div>
+    </div>
+
+    <!-- 当前会话提示 -->
+    <div class="session-tip" id="sessionTip">
+      <div class="tip-icon">🎬</div>
+      <div class="tip-text">
+        <div class="tip-title">Current Session</div>
+        <div class="tip-desc">A 90-minute journey of focus and creation</div>
       </div>
     </div>
 
@@ -54,6 +72,16 @@
       </div>
     </div>
 
+    <!-- 导航按钮 -->
+    <div class="nav-buttons">
+      <button id="thoughtsBtn" class="btn btn-primary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+        </svg>
+        思考
+      </button>
+    </div>
+
     <!-- 社交链接 -->
     <div class="social-row">
       <a href="https://x.com/Myrfather" target="_blank" rel="noopener" class="social-link">
@@ -61,6 +89,9 @@
       </a>
       <a href="https://github.com/dadnotfound" target="_blank" rel="noopener" class="social-link">
         GitHub
+      </a>
+      <a href="https://codecave.feishu.cn/drive/folder/CkvWf3Q8Il75RGdhdBUc70AtncQ" target="_blank" rel="noopener" class="social-link">
+        飞书
       </a>
     </div>
   </div>
