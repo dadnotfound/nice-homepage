@@ -153,7 +153,7 @@ git push origin main
 tidy -q -e src/index.html
 
 # 检查文件完整性
-ls -la src/index.html CLAUDE.md docs/CHANGELOG.md
+ls -la src/index.html docs/CLAUDE.md docs/CHANGELOG.md
 ```
 
 ## 扩展配置

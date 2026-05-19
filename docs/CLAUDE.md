@@ -52,7 +52,7 @@ docs/ - 项目文档集合
 ### L2 模块地图
 ```
 # src/
-> L2 | 父级: ../CLAUDE.md
+> L2 | 父级: ../docs/CLAUDE.md
 
 成员清单
 index.html: 主页面实现，包含样式、脚本和交互逻辑
